@@ -12,6 +12,7 @@ export default function ScrollIntroAnimation() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // MAIN PINNED SEQUENCE: Animates while the user continues to scroll within the pinned section
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -28,8 +29,8 @@ export default function ScrollIntroAnimation() {
       tl.to(purpleOrbRef.current, { scale: 3, xPercent: 60, yPercent: 20, opacity: 0.9, duration: 1 }, 0)
         .to(orangeOrbRef.current, { scale: 3, xPercent: -60, yPercent: -20, opacity: 0.9, duration: 1 }, 0)
 
-        // Text revealing beautifully (immediately)
-        .to(textRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 0)
+        // Text fully revealing
+        .to(textRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.6 }, 0)
 
         // Floating elements springing outward from the center (immediately)
         .fromTo(particles,
@@ -50,7 +51,7 @@ export default function ScrollIntroAnimation() {
         // Final explosive blow out delayed so the text sits perfectly visible for a long scroll distance
         .to(purpleOrbRef.current, { scale: 8, opacity: 0, duration: 1 }, 2)
         .to(orangeOrbRef.current, { scale: 8, opacity: 0, duration: 1 }, 2)
-        .to(textRef.current, { opacity: 0, scale: 1.2, y: -30, duration: 0.8 }, 2.2)
+        .to(textRef.current, { opacity: 0, scale: 1.2, y: -30, "--glow-opacity": 0, duration: 0.8 }, 2.2)
         .to(particles, { opacity: 0, scale: 2, y: -100, stagger: 0.02, duration: 0.8 }, 2.2)
 
     }, containerRef)
@@ -62,11 +63,11 @@ export default function ScrollIntroAnimation() {
     <section ref={containerRef} className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-sand-bg">
       <div
         ref={purpleOrbRef}
-        className="absolute left-1/4 top-1/4 w-[40vh] h-[40vh] bg-sand-purple rounded-full blur-[100px] opacity-60 mix-blend-multiply"
+        className="absolute left-1/4 top-1/4 w-[40vh] h-[40vh] bg-sand-purple rounded-full blur-[100px] opacity-60 mix-blend-multiply dark:mix-blend-screen"
       />
       <div
         ref={orangeOrbRef}
-        className="absolute right-1/4 bottom-1/4 w-[40vh] h-[40vh] bg-sand-orange rounded-full blur-[100px] opacity-60 mix-blend-multiply"
+        className="absolute right-1/4 bottom-1/4 w-[40vh] h-[40vh] bg-sand-orange rounded-full blur-[100px] opacity-60 mix-blend-multiply dark:mix-blend-screen"
       />
 
       {/* Floating Elements Container */}
