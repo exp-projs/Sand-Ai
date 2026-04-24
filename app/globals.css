@@ -1,26 +1,54 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --sand-purple: #6461FF;
+  --sand-deep-purple: #44319E;
+  --sand-orange: #FF8A00;
+  --sand-soft-orange: #FFD082;
+  --sand-bg: #F9F7FC; /* Subtle purple-tinted off-white */
+  --sand-card-purple: #F3EEFA;
+  --sand-card-orange: #FFF8EE;
+  --sand-border: #E8E2F5;
+  --sand-text-primary: #151B1E;
+  --sand-text-secondary: #686674;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --sand-purple: #7B79FF; /* Slightly brighter for dark mode contrast */
+  --sand-deep-purple: #5642C9;
+  --sand-orange: #FF9B26;
+  --sand-soft-orange: #FFDA99;
+  --sand-bg: #0C0A13; /* Elegant, heavily pigmented deep space purple-black */
+  --sand-card-purple: #161324;
+  --sand-card-orange: #1A1111;
+  --sand-border: #2A2542;
+  --sand-text-primary: #F4F0F9;
+  --sand-text-secondary: #A1A0AB;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--sand-bg);
+  color: var(--sand-text-primary);
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--sand-purple);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sand-deep-purple);
 }
