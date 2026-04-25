@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
+import Image from 'next/image'
 import { gsap } from '@/lib/gsap'
 import PricingSection from './PricingSection'
 
@@ -68,7 +69,9 @@ export default function ProcessSection() {
             <div className="absolute -top-4 -left-4 bg-sand-orange rounded-xl w-10 h-10 flex items-center justify-center text-white text-sm font-bold shadow-sm shadow-sand-orange/20 transition-transform group-hover:scale-110">
               01
             </div>
-            <div className="text-4xl mb-6">📝</div>
+            <div className="relative w-16 h-16 mb-6 rounded-xl overflow-hidden shadow-sm">
+              <Image src="/icons/form-fill.jpg" alt="Form Fill" fill className="object-cover" />
+            </div>
             <h3 className="font-poppins font-bold text-xl text-sand-textPrimary mb-3">You Fill the Form</h3>
             <p className="text-sand-textSecondary text-sm mb-6">
               Intelligent chatbots that and goals. It takes less than 2 minutes!
@@ -115,19 +118,25 @@ export default function ProcessSection() {
             
             <div className="flex flex-col items-center gap-6 w-full mb-8">
               <div className="flex flex-col items-center text-center w-full">
-                <div className="w-12 h-12 bg-sand-bg rounded-full shadow-sm flex items-center justify-center text-2xl text-sand-purple mb-2">🔒</div>
+                <div className="w-14 h-14 relative rounded-full overflow-hidden shadow-sm mb-2">
+                  <Image src="/icons/pay-secure.jpg" alt="Secure Payment" fill className="object-cover" />
+                </div>
                 <div className="text-xs font-bold text-sand-textPrimary">Secure Payment</div>
                 <div className="text-[10px] text-sand-textSecondary mt-0.5">Safe & encrypted<br/>transactions</div>
               </div>
               <div className="text-sand-orange font-bold">↓</div>
               <div className="flex flex-col items-center text-center w-full">
-                <div className="w-12 h-12 bg-sand-bg rounded-full shadow-sm flex items-center justify-center text-2xl text-sand-purple mb-2">📅</div>
+                <div className="w-14 h-14 relative rounded-full overflow-hidden shadow-sm mb-2">
+                  <Image src="/icons/pay-tat.jpg" alt="Estimated TAT" fill className="object-cover" />
+                </div>
                 <div className="text-xs font-bold text-sand-textPrimary">Estimated TAT</div>
                 <div className="text-[10px] text-sand-textSecondary mt-0.5">We share delivery<br/>timeline upfront</div>
               </div>
               <div className="text-sand-orange font-bold">↓</div>
               <div className="flex flex-col items-center text-center w-full">
-                <div className="w-12 h-12 bg-sand-bg rounded-full shadow-sm flex items-center justify-center text-2xl text-sand-orange mb-2">🚀</div>
+                <div className="w-14 h-14 relative rounded-full overflow-hidden shadow-sm mb-2">
+                  <Image src="/icons/pay-deliver.jpg" alt="We Deliver" fill className="object-cover" />
+                </div>
                 <div className="text-xs font-bold text-sand-textPrimary">We Deliver</div>
                 <div className="text-[10px] text-sand-textSecondary mt-0.5">High-quality service<br/>delivered on time</div>
               </div>
