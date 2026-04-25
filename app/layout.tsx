@@ -18,8 +18,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "sand AI — Smarter Marketing. Better Growth.",
-  description: "sand AI is your growth partner for the AI era. We blend data, creativity, and automation to build marketing that scales.",
+  title: "Sand AI — Smarter Marketing. Better Growth.",
+  description: "Sand AI is your growth partner for the AI era. We blend data, creativity, and automation to build marketing that scales.",
 };
 
 export default function RootLayout({

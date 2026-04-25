@@ -117,14 +117,17 @@ export default function HeroSection() {
             ✦ AI POWERED MARKETING. REAL WORLD RESULTS.
           </div>
 
-          <h1 ref={titleLinesRef} className="font-poppins text-[42px] leading-tight md:text-[56px] font-bold text-sand-textPrimary">
-            <span className="inline-block overflow-hidden"><span className="word-wrap inline-block">Smarter Marketing.</span></span><br />
-            <span className="inline-block overflow-hidden"><span className="word-wrap inline-block">Better Growth.</span></span><br />
-            <span className="inline-block overflow-hidden"><span className="word-wrap inline-block text-sand-orange">Powered by AI.</span></span>
+          <h1 ref={titleLinesRef} className="font-poppins text-6xl md:text-7xl lg:text-[84px] leading-[0.9] font-black text-sand-textPrimary tracking-[-0.03em] -ml-1">
+            <span className="block overflow-hidden"><span className="word-wrap block pb-1">Smarter</span></span>
+            <span className="block overflow-hidden"><span className="word-wrap block pb-1">Growth</span></span>
+            <span className="block overflow-hidden"><span className="word-wrap block text-sand-purple pb-1">for</span></span>
+            <span className="block overflow-hidden"><span className="word-wrap block text-sand-purple pb-1">Bharat's</span></span>
+            <span className="block overflow-hidden"><span className="word-wrap block text-sand-orange pb-1">Local</span></span>
+            <span className="block overflow-hidden"><span className="word-wrap block text-sand-orange pb-1">Business.</span></span>
           </h1>
 
-          <p className="text-sand-textSecondary text-lg max-w-lg leading-relaxed">
-            sand AI is your growth partner for the AI era. We blend data, creativity, and automation to build marketing that scales.
+          <p className="text-sand-textSecondary text-lg md:text-xl max-w-[420px] leading-relaxed font-light mt-[-10px]">
+            SandAI brings <strong className="font-semibold text-sand-textPrimary">AI chatbots, websites, apps & social media</strong> to shops, clinics, salons, and local brands across <strong className="font-semibold text-sand-textPrimary">Tier 2 India</strong> — at a price that makes real sense.
           </p>
 
           <div ref={buttonsRef} className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -144,7 +147,7 @@ export default function HeroSection() {
           <div ref={giraffeRef} className="relative z-10 w-full max-w-[600px] transform scale-125 lg:scale-[1.5] -translate-x-4 lg:-translate-x-24 mt-8">
             <img
               src="/giraffe.png"
-              alt="sand AI Giraffe Mascot"
+              alt="Sand AI Giraffe Mascot"
               className="object-contain w-full h-auto drop-shadow-2xl mix-blend-multiply"
             />
           </div>

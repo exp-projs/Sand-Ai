@@ -54,7 +54,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-2 group">
           <span className="text-sand-purple transition-transform group-hover:scale-110">✦</span>
           <span className="font-poppins font-bold text-xl text-sand-textPrimary tracking-tight">
-            sand AI
+            Sand AI
           </span>
         </Link>
 
