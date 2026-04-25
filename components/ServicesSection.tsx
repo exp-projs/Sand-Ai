@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
+import Image from 'next/image'
 import { gsap } from '@/lib/gsap'
 import { Service } from '@/types'
 
@@ -8,7 +9,7 @@ const SERVICES: Service[] = [
   {
     id: 's1',
     number: '01',
-    icon: '🤖',
+    icon: '/icons/icon-chatbot.jpg',
     title: 'AI Chatbot',
     description: 'Intelligent chatbots that engage, qualify, and convert 24/7.',
     features: ['24/7 Customer Support', 'Lead Generation', 'Smart Conversations', 'Seamless Integrations'],
@@ -16,7 +17,7 @@ const SERVICES: Service[] = [
   {
     id: 's2',
     number: '02',
-    icon: '📱',
+    icon: '/icons/icon-social.jpg',
     title: 'Social Media',
     description: 'AI-powered content, scheduling, and engagement strategies.',
     features: ['Content Creation', 'AI Captions & Hashtags', 'Smart Scheduling', 'Performance Tracking'],
@@ -24,7 +25,7 @@ const SERVICES: Service[] = [
   {
     id: 's3',
     number: '03',
-    icon: '💻',
+    icon: '/icons/icon-website.jpg',
     title: 'AI Website',
     description: 'Beautiful, high-converting websites built with AI — designed to impress.',
     features: ['AI Website Builder', 'SEO Optimized', 'Responsive Design', 'Conversion Focused'],
@@ -32,7 +33,7 @@ const SERVICES: Service[] = [
   {
     id: 's4',
     number: '04',
-    icon: '📱',
+    icon: '/icons/icon-app.jpg',
     title: 'Your Own App',
     description: 'We build custom AI-powered apps tailored to your business goals.',
     features: ['Custom App Development', 'AI Integrations', 'Scalable & Secure', 'iOS & Android Ready'],
@@ -40,7 +41,7 @@ const SERVICES: Service[] = [
   {
     id: 's5',
     number: '05',
-    icon: '📊',
+    icon: '/icons/icon-feedback.jpg',
     title: 'AI Marketing Feedback',
     description: 'AI-driven insights and feedback that help you optimize, improve, and grow faster.',
     features: ['Customer Feedback AI', 'Campaign Insights', 'Sentiment Analysis', 'Actionable Reports'],
@@ -107,8 +108,14 @@ export default function ServicesSection() {
                 <div className="absolute -top-2 -left-2 bg-sand-orange rounded-lg w-8 h-8 flex items-center justify-center text-white text-xs font-bold shadow-sm">
                   {service.number}
                 </div>
-                <div className="w-20 h-20 mx-auto bg-gradient-to-br from-sand-purple/5 to-sand-orange/5 rounded-2xl flex items-center justify-center text-4xl mt-4">
-                  {service.icon}
+                <div className="w-24 h-24 mx-auto relative rounded-2xl overflow-hidden shadow-md mt-4 group-hover:scale-105 transition-transform duration-300">
+                  <Image 
+                    src={service.icon} 
+                    alt={service.title}
+                    fill
+                    className="object-cover"
+                    sizes="96px"
+                  />
                 </div>
               </div>
 
