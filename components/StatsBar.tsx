@@ -81,7 +81,7 @@ export default function StatsBar() {
   }, [])
 
   return (
-    <section ref={containerRef} className="py-16 bg-sand-bg">
+    <section id="stats-bar" ref={containerRef} className="pt-48 pb-16 bg-sand-bg">
       <div className="mx-auto max-w-6xl px-6">
         
         {/* Trusted By Logos */}

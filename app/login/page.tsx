@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { apiRequest } from '@/lib/api'
 import { supabase } from '@/lib/supabase'
 
 export default function LoginPage() {
@@ -18,9 +17,16 @@ export default function LoginPage() {
     setLoading(true)
     setError('')
     try {
-      const data = await apiRequest('/auth/login', 'POST', { email, password })
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+      
+      if (authError) throw authError
+      
       console.log('Login success:', data)
       router.push('/')
+      router.refresh()
     } catch (err: any) {
       setError(err.message)
     } finally {
@@ -33,7 +39,7 @@ export default function LoginPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: window.location.origin
+          redirectTo: `${window.location.origin}/auth/callback`
         }
       })
       if (error) throw error
@@ -43,12 +49,12 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#F4F0F9] to-[#EDE8FA] px-6 py-12">
-      <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-sand-border/30">
+    <div className="min-h-screen flex items-center justify-center bg-sand-bg px-6 py-12 transition-colors duration-300">
+      <div className="max-w-md w-full bg-white dark:bg-sand-cardPurple rounded-3xl shadow-2xl overflow-hidden border border-sand-border transition-all duration-300">
         <div className="p-8 md:p-10">
           <div className="flex justify-center mb-8">
-             <Link href="/" className="flex items-center gap-2 group">
-              <span className="text-sand-purple text-2xl group-hover:scale-110 transition-transform">✦</span>
+            <Link href="/" className="flex items-center gap-2 group">
+              <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain group-hover:scale-110 transition-transform" />
               <span className="font-poppins font-bold text-2xl text-sand-textPrimary tracking-tight">
                 Sand AI
               </span>
@@ -59,7 +65,7 @@ export default function LoginPage() {
           <p className="text-center text-sand-textSecondary font-light mb-8">Enter your details to access your account</p>
 
           {error && (
-            <div className="bg-red-50 text-red-500 p-4 rounded-xl text-sm mb-6 border border-red-100 italic">
+            <div className="bg-red-50 dark:bg-red-950/30 text-red-500 dark:text-red-400 p-4 rounded-xl text-sm mb-6 border border-red-100 dark:border-red-900/50 italic">
               {error}
             </div>
           )}
@@ -72,7 +78,7 @@ export default function LoginPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-5 py-4 rounded-2xl bg-sand-cardPurple/5 border border-sand-border focus:ring-2 focus:ring-sand-purple/20 focus:border-sand-purple outline-none transition-all font-medium"
+                className="w-full px-5 py-4 rounded-2xl bg-sand-cardPurple/5 dark:bg-white/5 border border-sand-border focus:ring-2 focus:ring-sand-purple/20 focus:border-sand-purple outline-none transition-all font-medium text-sand-textPrimary"
                 placeholder="you@example.com"
               />
             </div>
@@ -84,7 +90,7 @@ export default function LoginPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-5 py-4 rounded-2xl bg-sand-cardPurple/5 border border-sand-border focus:ring-2 focus:ring-sand-purple/20 focus:border-sand-purple outline-none transition-all font-medium"
+                className="w-full px-5 py-4 rounded-2xl bg-sand-cardPurple/5 dark:bg-white/5 border border-sand-border focus:ring-2 focus:ring-sand-purple/20 focus:border-sand-purple outline-none transition-all font-medium text-sand-textPrimary"
                 placeholder="••••••••"
               />
             </div>
@@ -100,13 +106,13 @@ export default function LoginPage() {
           </form>
 
           <div className="relative my-8 text-center">
-            <span className="bg-white px-4 text-sm text-sand-textSecondary relative z-10 font-medium">Or continue with</span>
+            <span className="bg-white dark:bg-sand-cardPurple px-4 text-sm text-sand-textSecondary relative z-10 font-medium transition-colors duration-300">Or continue with</span>
             <div className="absolute top-1/2 left-0 w-full h-[1px] bg-sand-border" />
           </div>
 
           <button
             onClick={handleGoogleLogin}
-            className="w-full bg-white border border-sand-border text-sand-textPrimary font-bold py-4 rounded-2xl hover:bg-gray-50 transition-colors flex items-center justify-center gap-3"
+            className="w-full bg-white dark:bg-white/5 border border-sand-border text-sand-textPrimary font-bold py-4 rounded-2xl hover:bg-gray-50 dark:hover:bg-white/10 transition-colors flex items-center justify-center gap-3"
           >
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" className="w-5 h-5" alt="Google" />
             Sign in with Google

@@ -12,32 +12,27 @@ export default function ScrollIntroAnimation() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // MAIN PINNED SEQUENCE: Animates while the user continues to scroll within the pinned section
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top top',
-          end: '+=100%',
+          end: '+=200%',
           pin: true,
-          scrub: 0.5,
+          scrub: 1,
         }
       })
 
       const particles = particlesRef.current ? Array.from(particlesRef.current.children) : []
 
-      // Orbs sweeping across, expanding, mixing purple and orange
-      tl.to(purpleOrbRef.current, { scale: 3, xPercent: 60, yPercent: 20, opacity: 0.9, duration: 1 }, 0)
-        .to(orangeOrbRef.current, { scale: 3, xPercent: -60, yPercent: -20, opacity: 0.9, duration: 1 }, 0)
-
-        // Text fully revealing
-        .to(textRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.6 }, 0)
-
-        // Floating elements springing outward from the center (immediately)
+      // THE REVEAL (Starts immediately, finishes by 20% of scroll)
+      tl.to(purpleOrbRef.current, { scale: 3, xPercent: 60, yPercent: 20, opacity: 0.8, duration: 1 }, 0)
+        .to(orangeOrbRef.current, { scale: 3, xPercent: -60, yPercent: -20, opacity: 0.8, duration: 1 }, 0)
+        .to(textRef.current, { opacity: 1, scale: 1, y: 0, duration: 0.8 }, 0)
         .fromTo(particles,
           { x: 0, y: 50, scale: 0, opacity: 0 },
           {
-            x: "random(-150, 150)",
-            y: "random(-150, 150)",
+            x: "random(-180, 180)",
+            y: "random(-180, 180)",
             scale: "random(0.8, 1.5)",
             opacity: 1,
             rotation: "random(-180, 180)",
@@ -47,12 +42,14 @@ export default function ScrollIntroAnimation() {
           },
           0
         )
+      
+      // THE HOLD (Empty space for a long scroll distance)
 
-        // Final explosive blow out delayed so the text sits perfectly visible for a long scroll distance
-        .to(purpleOrbRef.current, { scale: 8, opacity: 0, duration: 1 }, 2)
-        .to(orangeOrbRef.current, { scale: 8, opacity: 0, duration: 1 }, 2)
-        .to(textRef.current, { opacity: 0, scale: 1.2, y: -30, "--glow-opacity": 0, duration: 0.8 }, 2.2)
-        .to(particles, { opacity: 0, scale: 2, y: -100, stagger: 0.02, duration: 0.8 }, 2.2)
+      // THE GENTLE EXIT (Starts at duration 3, makes the transition much slower)
+      tl.to(purpleOrbRef.current, { scale: 10, opacity: 0, duration: 2, ease: 'power1.inOut' }, 3)
+        .to(orangeOrbRef.current, { scale: 10, opacity: 0, duration: 2, ease: 'power1.inOut' }, 3)
+        .to(textRef.current, { opacity: 0, scale: 1.2, y: -50, duration: 1.5 }, 3.5)
+        .to(particles, { opacity: 0, scale: 2, y: -100, stagger: 0.02, duration: 1.5 }, 3.5)
 
     }, containerRef)
 
@@ -60,7 +57,7 @@ export default function ScrollIntroAnimation() {
   }, [])
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen overflow-hidden flex items-center justify-center bg-sand-bg">
+    <section ref={containerRef} className="relative w-full h-[120vh] overflow-hidden flex items-center justify-center bg-sand-bg">
       <div
         ref={purpleOrbRef}
         className="absolute left-1/4 top-1/4 w-[40vh] h-[40vh] bg-sand-purple rounded-full blur-[100px] opacity-60 mix-blend-multiply dark:mix-blend-screen"
