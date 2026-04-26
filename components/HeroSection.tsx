@@ -113,8 +113,9 @@ export default function HeroSection() {
       <div className="mx-auto max-w-6xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Left Column */}
         <div className="flex flex-col items-start gap-8 z-10">
-          <div ref={badgeRef} className="border border-sand-border rounded-full px-4 py-1.5 text-xs font-semibold text-sand-purple uppercase tracking-wider bg-sand-cardPurple/50 backdrop-blur-sm">
-            ✦ AI POWERED MARKETING. REAL WORLD RESULTS.
+          <div ref={badgeRef} className="flex items-center gap-2 border border-sand-border rounded-full px-4 py-1.5 text-xs font-semibold text-sand-purple uppercase tracking-wider bg-sand-cardPurple/50 backdrop-blur-sm">
+            <img src="/logo.png" alt="Logo" className="w-4 h-4 object-contain" />
+            AI POWERED MARKETING. REAL WORLD RESULTS.
           </div>
 
           <h1 ref={titleLinesRef} className="font-poppins text-6xl md:text-7xl lg:text-[84px] leading-[0.9] font-black text-sand-textPrimary tracking-[-0.03em] -ml-1">

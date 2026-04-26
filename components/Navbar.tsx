@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { gsap } from '@/lib/gsap'
 import { NavItem } from '@/types'
 import { ThemeToggle } from './ThemeToggle'
+import { supabase } from '@/lib/supabase'
+import { User } from '@supabase/supabase-js'
 
 const NAV_LINKS: NavItem[] = [
   { label: 'Home', href: '/' },
@@ -19,8 +21,19 @@ export default function Navbar() {
   const navRef = useRef<HTMLElement>(null)
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null)
+    })
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
     const ctx = gsap.context(() => {
       gsap.from(navRef.current, {
         y: -80,
@@ -37,9 +50,15 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll)
     return () => {
       window.removeEventListener('scroll', handleScroll)
+      subscription.unsubscribe()
       ctx.revert()
     }
   }, [])
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    window.location.reload()
+  }
 
   return (
     <header
@@ -52,7 +71,11 @@ export default function Navbar() {
           }`}
       >
         <Link href="/" className="flex items-center gap-2 group">
-          <span className="text-sand-purple transition-transform group-hover:scale-110">✦</span>
+          <img 
+            src="/logo.png" 
+            alt="Sand AI Logo" 
+            className="w-10 h-10 object-contain transition-transform group-hover:scale-110"
+          />
           <span className="font-poppins font-bold text-xl text-sand-textPrimary tracking-tight">
             Sand AI
           </span>
@@ -73,6 +96,49 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-4">
           <ThemeToggle />
+          
+          {user ? (
+            <div className="flex items-center gap-3 pl-2 border-l border-sand-border">
+              <div className="text-right hidden lg:block">
+                <p className="text-xs font-bold text-sand-textPrimary leading-none">
+                  {user.user_metadata?.full_name || user.email?.split('@')[0]}
+                </p>
+                <button 
+                  onClick={handleLogout}
+                  className="text-[10px] text-sand-purple font-semibold hover:underline"
+                >
+                  Logout
+                </button>
+              </div>
+              {user.user_metadata?.avatar_url ? (
+                <img 
+                  src={user.user_metadata.avatar_url} 
+                  alt="Profile" 
+                  className="w-8 h-8 rounded-full border border-sand-purple/20"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-sand-purple/10 flex items-center justify-center text-sand-purple font-bold text-xs border border-sand-purple/20 uppercase">
+                  {user.email?.charAt(0)}
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="text-sm font-semibold text-sand-textPrimary hover:text-sand-purple transition-colors px-2"
+              >
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded-full border border-sand-purple px-6 py-2.5 text-sm font-semibold text-sand-purple hover:bg-sand-purple hover:text-white transition-all shadow-sm"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
+
           <Link
             href="#contact"
             className="rounded-full bg-sand-orange px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#E67A00] transition-colors"
@@ -99,6 +165,28 @@ export default function Navbar() {
           }`}
       >
         <nav className="flex flex-col p-6 space-y-4">
+          {user && (
+            <div className="flex items-center gap-4 p-4 bg-sand-purple/5 rounded-xl border border-sand-purple/10 mb-2">
+               {user.user_metadata?.avatar_url ? (
+                <img 
+                  src={user.user_metadata.avatar_url} 
+                  alt="Profile" 
+                  className="w-10 h-10 rounded-full border border-sand-purple/20"
+                />
+              ) : (
+                <div className="w-10 h-10 rounded-full bg-sand-purple/10 flex items-center justify-center text-sand-purple font-bold border border-sand-purple/20 uppercase">
+                  {user.email?.charAt(0)}
+                </div>
+              )}
+              <div>
+                <p className="font-bold text-sand-textPrimary">
+                   {user.user_metadata?.full_name || user.email?.split('@')[0]}
+                </p>
+                <p className="text-xs text-sand-textSecondary">{user.email}</p>
+              </div>
+            </div>
+          )}
+
           {NAV_LINKS.map((link) => (
             <Link
               key={link.label}
@@ -109,13 +197,40 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Link
-            href="#contact"
-            onClick={() => setMobileMenuOpen(false)}
-            className="w-full mt-4 rounded-full bg-sand-orange px-6 py-3 text-center font-semibold text-white shadow-sm hover:bg-[#E67A00]"
-          >
-            Book a Call
-          </Link>
+          <div className="flex flex-col gap-2 pt-4 border-t border-sand-border">
+            {!user ? (
+              <>
+                <Link
+                  href="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full rounded-full border border-sand-border px-6 py-3 text-center font-semibold text-sand-textPrimary"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/signup"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full rounded-full border border-sand-purple px-6 py-3 text-center font-semibold text-sand-purple"
+                >
+                  Sign Up
+                </Link>
+              </>
+            ) : (
+              <button
+                onClick={handleLogout}
+                className="w-full rounded-full border border-red-200 text-red-500 px-6 py-3 text-center font-semibold bg-red-50"
+              >
+                Logout
+              </button>
+            )}
+            <Link
+              href="#contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full rounded-full bg-sand-orange px-6 py-3 text-center font-semibold text-white shadow-sm hover:bg-[#E67A00]"
+            >
+              Book a Call
+            </Link>
+          </div>
         </nav>
       </div>
     </header>
