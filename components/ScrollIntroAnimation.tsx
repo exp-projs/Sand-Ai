@@ -72,10 +72,10 @@ export default function ScrollIntroAnimation() {
         <div ref={particlesRef} className="relative w-0 h-0">
           {/* Particles positioned accurately outward from the exact center */}
           <div className="absolute -top-[150px] -left-[250px] text-sand-purple text-3xl font-bold">✦</div>
-          <div className="absolute top-[120px] left-[280px] text-sand-orange bg-sand-orange/20 rounded-full w-6 h-6 backdrop-blur-sm shadow-lg border border-white/20"></div>
+          <div className="absolute top-[120px] left-[280px] text-sand-orange bg-sand-orange/20 rounded-full w-6 h-6 backdrop-blur-sm shadow-lg border border-sand-border"></div>
           <div className="absolute top-[180px] -left-[280px] text-sand-purple text-5xl opacity-40">✴</div>
           <div className="absolute -top-[220px] left-[160px] text-sand-orange text-4xl font-bold">✦</div>
-          <div className="absolute top-[20px] -left-[350px] text-sand-purple bg-sand-purple/20 rounded-full w-10 h-10 backdrop-blur-sm border border-white/20"></div>
+          <div className="absolute top-[20px] -left-[350px] text-sand-purple bg-sand-purple/20 rounded-full w-10 h-10 backdrop-blur-sm border border-sand-border"></div>
           <div className="absolute -top-[50px] left-[320px] text-sand-orange text-5xl opacity-50 font-bold">✴</div>
           <div className="absolute top-[280px] left-[120px] text-sand-orange bg-sand-orange/40 w-5 h-5 rounded-full blur-[1px]"></div>
           <div className="absolute -bottom-[200px] -left-[100px] text-sand-purple text-xl font-bold border-2 border-sand-purple/30 w-8 h-8 rounded-sm rotate-12"></div>

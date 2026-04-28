@@ -28,6 +28,7 @@ export interface Service {
   title: string
   description: string
   features: string[]
+  href?: string
 }
 
 export interface PricingTier {

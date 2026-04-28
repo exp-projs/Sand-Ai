@@ -70,8 +70,8 @@ export default function PricingSection() {
           key={tier.name}
           className={`relative bg-sand-cardPurple rounded-3xl p-8 flex flex-col h-full transition-transform duration-300 hover:-translate-y-2 ${
             tier.isPopular
-              ? 'border-2 border-sand-orange shadow-xl shadow-sand-orange/10 transform scale-105 z-10'
-              : 'border border-gray-100 shadow-sm'
+              ? 'border-2 border-sand-orange shadow-xl shadow-sand-orange/10 transform md:scale-105 z-10'
+              : 'border border-sand-border shadow-sm'
           }`}
         >
           {tier.isPopular && (

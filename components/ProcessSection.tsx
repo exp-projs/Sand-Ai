@@ -57,7 +57,7 @@ export default function ProcessSection() {
             <path
               d="M0,50 Q250,5 500,50 T1000,50"
               fill="none"
-              stroke="#FF8A00"
+              stroke="var(--sand-orange)"
               strokeWidth="2"
               strokeDasharray="8 8"
               opacity="0.3"
@@ -166,7 +166,7 @@ export default function ProcessSection() {
               </div>
             </div>
 
-            <div className="mt-auto pt-6 border-t border-gray-200 dark:border-white/10 flex items-center justify-center gap-2 text-xs font-medium text-sand-textPrimary w-full">
+            <div className="mt-auto pt-6 border-t border-sand-border flex items-center justify-center gap-2 text-xs font-medium text-sand-textPrimary w-full">
               <span className="text-sand-purple text-base">⏱️</span> Typical Delivery Time <span className="text-sand-purple font-bold mx-1">·</span> <span className="text-sand-purple font-bold">3 to 10 Business Days</span>
             </div>
           </div>

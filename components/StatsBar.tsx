@@ -85,7 +85,7 @@ export default function StatsBar() {
       <div className="mx-auto max-w-6xl px-6">
         
         {/* Trusted By Logos */}
-        <div className="flex flex-col md:flex-row items-center gap-8 border-b border-gray-100 pb-16">
+        <div className="flex flex-col md:flex-row items-center gap-8 border-b border-sand-border pb-16">
           <p className="text-sm font-medium text-sand-textSecondary whitespace-nowrap min-w-max">
             Trusted by<br className="hidden md:block"/>innovative brands
           </p>
@@ -114,7 +114,7 @@ export default function StatsBar() {
               </p>
               <a 
                 href={feature.href}
-                className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-sand-textSecondary group-hover:bg-sand-purple group-hover:text-white group-hover:border-sand-purple transition-colors mt-2"
+                className="w-8 h-8 rounded-full border border-sand-border flex items-center justify-center text-sand-textSecondary group-hover:bg-sand-purple group-hover:text-white group-hover:border-sand-purple transition-colors mt-2"
                 aria-label={`Learn more about ${feature.title}`}
               >
                 →

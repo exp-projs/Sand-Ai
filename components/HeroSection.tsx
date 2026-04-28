@@ -108,7 +108,7 @@ export default function HeroSection() {
   return (
     <section ref={containerRef} className="relative pt-32 pb-16 overflow-hidden">
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#F4F0F9] to-[#EDE8FA] -z-10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-sand-cardPurple to-sand-bg -z-10 opacity-50" />
 
       <div className="mx-auto max-w-6xl px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Left Column */}
@@ -118,7 +118,7 @@ export default function HeroSection() {
             AI POWERED MARKETING. REAL WORLD RESULTS.
           </div>
 
-          <h1 ref={titleLinesRef} className="font-poppins text-6xl md:text-7xl lg:text-[84px] leading-[0.9] font-black text-sand-textPrimary tracking-[-0.03em] -ml-1">
+          <h1 ref={titleLinesRef} className="font-poppins text-5xl md:text-7xl lg:text-[84px] leading-[0.9] font-black text-sand-textPrimary tracking-[-0.03em] -ml-1">
             <span className="block overflow-hidden"><span className="word-wrap block pb-1">Smarter</span></span>
             <span className="block overflow-hidden"><span className="word-wrap block pb-1">Growth</span></span>
             <span className="block overflow-hidden"><span className="word-wrap block text-sand-purple pb-1">for</span></span>
@@ -144,12 +144,12 @@ export default function HeroSection() {
         </div>
 
         {/* Right Column */}
-        <div className="relative w-full h-[600px] flex justify-center items-center">
-          <div ref={giraffeRef} className="relative z-10 w-full max-w-[600px] transform scale-125 lg:scale-[1.5] -translate-x-4 lg:-translate-x-24 mt-8">
+        <div className="relative w-full h-[400px] md:h-[600px] flex justify-center items-center">
+          <div ref={giraffeRef} className="relative z-10 w-full max-w-[600px] transform scale-110 md:scale-125 lg:scale-[1.5] -translate-x-4 lg:-translate-x-24 mt-8">
             <img
               src="/giraffe.png"
               alt="Sand AI Giraffe Mascot"
-              className="object-contain w-full h-auto drop-shadow-2xl mix-blend-multiply"
+              className="object-contain w-full h-auto drop-shadow-2xl mix-blend-multiply dark:mix-blend-normal"
             />
           </div>
 

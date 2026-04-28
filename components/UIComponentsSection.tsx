@@ -27,7 +27,7 @@ export default function UIComponentsSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-24 bg-[#FAFAFA] border-t border-gray-100">
+    <section ref={sectionRef} className="py-24 bg-sand-bg border-t border-sand-border">
       <div className="mx-auto max-w-7xl px-6">
         
         <div className="text-center mb-16">
@@ -133,7 +133,7 @@ export default function UIComponentsSection() {
                   <span>Services</span>
                   <span>Pricing</span>
                 </div>
-                <div className="w-full h-px bg-gray-100"></div>
+                <div className="w-full h-px bg-sand-border"></div>
                 <button className="w-full rounded-full bg-sand-orange py-2.5 text-sm font-bold text-white shadow-md shadow-sand-orange/20 flex justify-center items-center gap-2">
                    📞 Book a Call
                 </button>
