@@ -22,6 +22,7 @@ const PRODUCT_LINKS = [
   { label: 'Social Media', href: '/social-media', description: 'Auto-posts & Reels scripts', icon: '📱' },
   { label: 'AI Website', href: '/website', description: 'Local SEO optimized sites', icon: '🌐' },
   { label: 'Mailing & Loyalty', href: '/mailing', description: 'Retention & Rewards', icon: '✉️' },
+  { label: 'AI Meta Ads', href: '/meta-ads', description: 'High-ROI Facebook & Instagram ads', icon: '📈' },
 ]
 
 export default function Navbar() {

@@ -43,6 +43,15 @@ const SERVICES = [
     features: ['Retention Marketing', 'SMS Direct Alerts', 'Loyalty Points', 'Review Collector'],
     href: '/mailing'
   },
+  {
+    id: 's5',
+    number: '05',
+    icon: '/icons/icon-meta-ads.jpg',
+    title: 'AI Meta Ads',
+    description: 'High-ROI Facebook & Instagram ad campaigns created and optimized by AI.',
+    features: ['Auto-Generated Creative', 'Smart Budget Optimizer', 'Local Audience Targeting', 'Instant Lead Sync'],
+    href: '/meta-ads'
+  },
 ]
 
 export default function ServicesSection() {
@@ -95,7 +104,7 @@ export default function ServicesSection() {
           </h2>
         </div>
 
-        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {SERVICES.map((service, idx) => (
             <Link 
               key={service.id}

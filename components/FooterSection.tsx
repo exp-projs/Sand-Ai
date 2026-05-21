@@ -36,7 +36,8 @@ export default function FooterSection() {
               { label: 'AI Chatbot', href: '/chatbot' },
               { label: 'Social Media', href: '/social-media' },
               { label: 'AI Website', href: '/website' },
-              { label: 'Mailing & Loyalty', href: '/mailing' }
+              { label: 'Mailing & Loyalty', href: '/mailing' },
+              { label: 'AI Meta Ads', href: '/meta-ads' }
             ].map(link => (
               <li key={link.label}>
                 <Link href={link.href} className="text-sm text-sand-textSecondary hover:text-sand-orange transition-colors">
