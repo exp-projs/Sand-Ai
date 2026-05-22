@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function FooterSection() {
   return (
-    <footer className="bg-sand-deepPurple text-white">
+    <footer id="layout-footer" className="bg-sand-deepPurple text-white">
       <div className="mx-auto max-w-7xl px-6 py-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
         {/* Brand Column */}
         <div className="space-y-6">
@@ -54,7 +54,7 @@ export default function FooterSection() {
           <ul className="space-y-4">
             {[
               { label: 'About Us', href: '#about' },
-              { label: 'Pricing', href: '#pricing' },
+              { label: 'Pricing', href: '/pricing' },
               { label: 'Case Studies', href: '#case-studies' },
               { label: 'Blog', href: '#blog' }
             ].map(link => (

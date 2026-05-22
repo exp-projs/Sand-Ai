@@ -4,10 +4,13 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import FooterSection from "@/components/FooterSection";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import IntroOverlay from "@/components/IntroOverlay";
+import CustomCursor from "@/components/CustomCursor";
+import LenisProvider from "@/components/LenisProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["600", "700"],
+  weight: ["400", "600", "700"],
   variable: "--font-poppins",
 });
 
@@ -36,9 +39,31 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
-          <Navbar />
-          {children}
-          <FooterSection />
+          <IntroOverlay />
+          <CustomCursor />
+          <div className="grain-overlay" />
+          
+          {/* Architectural Background Grid Lines */}
+          <div className="fixed inset-0 grid grid-cols-4 pointer-events-none z-0 max-w-7xl mx-auto px-6">
+            <div className="border-r border-black/[0.03] dark:border-white/[0.03] h-full relative overflow-hidden">
+              <div className="guide-line-streak streak-1" />
+            </div>
+            <div className="border-r border-black/[0.03] dark:border-white/[0.03] h-full relative overflow-hidden">
+              <div className="guide-line-streak streak-2" />
+            </div>
+            <div className="border-r border-black/[0.03] dark:border-white/[0.03] h-full relative overflow-hidden">
+              <div className="guide-line-streak streak-3" />
+            </div>
+            <div className="h-full relative overflow-hidden">
+              <div className="guide-line-streak streak-4" />
+            </div>
+          </div>
+
+          <LenisProvider>
+            <Navbar />
+            {children}
+            <FooterSection />
+          </LenisProvider>
         </ThemeProvider>
       </body>
     </html>
