@@ -188,8 +188,15 @@ export default function ExoHero() {
                   animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
                 }
               `}</style>
-              <div className="hero-welcome-badge mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs md:text-sm font-bold text-white uppercase tracking-wider">
-                👋 Welcome, {user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'User'}
+              <div className="hero-welcome-badge mb-6 inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-slate-950/75 backdrop-blur-md border border-sand-purple/30 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] text-xs md:text-sm font-semibold tracking-wider">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sand-orange opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-sand-orange"></span>
+                </span>
+                <span className="text-white/90">Welcome, </span>
+                <span className="font-extrabold bg-gradient-to-r from-sand-purple to-sand-orange bg-clip-text text-transparent uppercase">
+                  {user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'User'}
+                </span>
               </div>
             </>
           )}

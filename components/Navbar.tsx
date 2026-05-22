@@ -198,18 +198,12 @@ export default function Navbar() {
               <ThemeToggle />
 
               {user ? (
-                <div className="flex items-center gap-3 pl-2 border-l border-sand-border">
+                <div className="flex items-center gap-3 pl-3 pr-2.5 py-1.5 rounded-full bg-sand-cardPurple/50 dark:bg-white/5 border border-sand-border/80 backdrop-blur-md shadow-sm">
                   <div className="text-right hidden lg:block">
-                    <p className="text-[10px] text-sand-textSecondary">Welcome,</p>
-                    <p className="text-xs font-bold text-sand-textPrimary leading-none">
+                    <span className="text-[9px] font-medium text-sand-textSecondary uppercase tracking-wider">Welcome,</span>
+                    <p className="text-xs font-extrabold bg-gradient-to-r from-sand-purple to-sand-orange bg-clip-text text-transparent leading-none mt-0.5">
                       {user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0]}
                     </p>
-                    <button
-                      onClick={handleLogout}
-                      className="text-[10px] text-sand-purple font-semibold hover:underline mt-1 block ml-auto"
-                    >
-                      Logout
-                    </button>
                   </div>
                   {user.user_metadata?.avatar_url ? (
                     <img
@@ -218,10 +212,17 @@ export default function Navbar() {
                       className="w-8 h-8 rounded-full border border-sand-purple/20"
                     />
                   ) : (
-                    <div className="w-8 h-8 rounded-full bg-sand-purple/10 flex items-center justify-center text-sand-purple font-bold text-xs border border-sand-purple/20 uppercase">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sand-purple to-sand-orange flex items-center justify-center text-white font-bold text-xs shadow-sm uppercase">
                       {(user.user_metadata?.full_name || user.user_metadata?.name || user.email || 'U').charAt(0).toUpperCase()}
                     </div>
                   )}
+                  <button
+                    onClick={handleLogout}
+                    className="text-[10px] text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 font-semibold pl-2 border-l border-sand-border/60 hover:underline"
+                    title="Logout"
+                  >
+                    Logout
+                  </button>
                 </div>
               ) : (
                 <>
@@ -316,7 +317,7 @@ export default function Navbar() {
 
         {/* Auth Actions */}
         {user && (
-          <div className="flex items-center gap-3 mt-4 mb-2 p-3 bg-white/5 rounded-2xl border border-sand-border/50">
+          <div className="flex items-center gap-4.5 mt-4 mb-2 px-5 py-3.5 bg-sand-cardPurple/50 dark:bg-white/5 rounded-2xl border border-sand-border/80 backdrop-blur-md shadow-sm">
             {user.user_metadata?.avatar_url ? (
               <img
                 src={user.user_metadata.avatar_url}
@@ -324,13 +325,13 @@ export default function Navbar() {
                 className="w-10 h-10 rounded-full border border-sand-purple/20"
               />
             ) : (
-              <div className="w-10 h-10 rounded-full bg-sand-purple/10 flex items-center justify-center text-sand-purple font-bold text-base border border-sand-purple/20 uppercase">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sand-purple to-sand-orange flex items-center justify-center text-white font-bold text-base shadow-sm uppercase">
                 {(user.user_metadata?.full_name || user.user_metadata?.name || user.email || 'U').charAt(0).toUpperCase()}
               </div>
             )}
             <div className="text-left">
-              <p className="text-[10px] text-sand-textSecondary">Welcome,</p>
-              <p className="text-sm font-bold text-sand-textPrimary leading-none">
+              <p className="text-[10px] text-sand-textSecondary uppercase tracking-wider font-medium">Welcome,</p>
+              <p className="text-sm font-extrabold bg-gradient-to-r from-sand-purple to-sand-orange bg-clip-text text-transparent leading-none mt-1">
                 {user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0]}
               </p>
             </div>
