@@ -103,7 +103,11 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className={`hidden md:flex items-center gap-8 transition-all duration-500 ${
+            scrolled
+              ? 'opacity-0 -translate-y-4 pointer-events-none'
+              : 'opacity-100 translate-y-0'
+          }`}>
             <Link
               href="/"
               className="text-sm font-medium text-sand-textSecondary hover:text-sand-purple transition-colors"
@@ -183,84 +187,101 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Desktop Right Actions */}
-          <div className="hidden md:flex items-center gap-4">
-            <ThemeToggle />
+          {/* Desktop Right Actions & Scrolled Menu Button Wrapper */}
+          <div className="relative flex items-center justify-end">
+            {/* Desktop Right Actions */}
+            <div className={`hidden md:flex items-center gap-4 transition-all duration-500 ${
+              scrolled
+                ? 'opacity-0 -translate-y-4 pointer-events-none'
+                : 'opacity-100 translate-y-0'
+            }`}>
+              <ThemeToggle />
 
-            {user ? (
-              <div className="flex items-center gap-3 pl-2 border-l border-sand-border">
-                <div className="text-right hidden lg:block">
-                  <p className="text-xs font-bold text-sand-textPrimary leading-none">
-                    {user.user_metadata?.full_name || user.email?.split('@')[0]}
-                  </p>
-                  <button
-                    onClick={handleLogout}
-                    className="text-[10px] text-sand-purple font-semibold hover:underline"
-                  >
-                    Logout
-                  </button>
-                </div>
-                {user.user_metadata?.avatar_url ? (
-                  <img
-                    src={user.user_metadata.avatar_url}
-                    alt="Profile"
-                    className="w-8 h-8 rounded-full border border-sand-purple/20"
-                  />
-                ) : (
-                  <div className="w-8 h-8 rounded-full bg-sand-purple/10 flex items-center justify-center text-sand-purple font-bold text-xs border border-sand-purple/20 uppercase">
-                    {user.email?.charAt(0)}
+              {user ? (
+                <div className="flex items-center gap-3 pl-2 border-l border-sand-border">
+                  <div className="text-right hidden lg:block">
+                    <p className="text-[10px] text-sand-textSecondary">Welcome,</p>
+                    <p className="text-xs font-bold text-sand-textPrimary leading-none">
+                      {user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0]}
+                    </p>
+                    <button
+                      onClick={handleLogout}
+                      className="text-[10px] text-sand-purple font-semibold hover:underline mt-1 block ml-auto"
+                    >
+                      Logout
+                    </button>
                   </div>
-                )}
-              </div>
-            ) : (
-              <>
-                <Link
-                  href="/login"
-                  className="text-sm font-semibold text-sand-textPrimary hover:text-sand-purple transition-colors px-2"
-                >
-                  Login
-                </Link>
-                <Link
-                  href="/signup"
-                  className="rounded-full border border-sand-purple px-6 py-2.5 text-sm font-semibold text-sand-purple hover:bg-sand-purple hover:text-white transition-all shadow-sm"
-                >
-                  Sign Up
-                </Link>
-              </>
-            )}
+                  {user.user_metadata?.avatar_url ? (
+                    <img
+                      src={user.user_metadata.avatar_url}
+                      alt="Profile"
+                      className="w-8 h-8 rounded-full border border-sand-purple/20"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 rounded-full bg-sand-purple/10 flex items-center justify-center text-sand-purple font-bold text-xs border border-sand-purple/20 uppercase">
+                      {(user.user_metadata?.full_name || user.user_metadata?.name || user.email || 'U').charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="text-sm font-semibold text-sand-textPrimary hover:text-sand-purple transition-colors px-2"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="rounded-full border border-sand-purple px-6 py-2.5 text-sm font-semibold text-sand-purple hover:bg-sand-purple hover:text-white transition-all shadow-sm"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
 
-            <Link
-              href="#contact"
-              className="rounded-full bg-sand-orange px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#E67A00] transition-colors"
+              <Link
+                href="#contact"
+                className="rounded-full bg-sand-orange px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#E67A00] transition-colors"
+              >
+                Book a Call
+              </Link>
+            </div>
+
+            {/* Scrolled & Mobile Unified Menu Button */}
+            <button
+              title="Menu"
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`flex items-center gap-2.5 px-4 py-2 rounded-full border border-sand-border/80 bg-sand-cardPurple/40 backdrop-blur-md transition-all duration-500 z-50 focus:outline-none ${
+                scrolled || mobileMenuOpen
+                  ? 'opacity-100 translate-x-0 pointer-events-auto'
+                  : 'opacity-0 translate-x-4 pointer-events-none md:absolute'
+              }`}
             >
-              Book a Call
-            </Link>
+              <span className="text-xs font-bold uppercase tracking-wider text-sand-textPrimary hidden md:inline">
+                {mobileMenuOpen ? 'Close' : 'Menu'}
+              </span>
+              <div className="flex flex-col justify-center gap-1 w-5 h-5 items-center">
+                <span
+                  className={`block w-4 h-0.5 bg-sand-textPrimary transition-all duration-300 ${
+                    mobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''
+                  }`}
+                />
+                <span
+                  className={`block w-4 h-0.5 bg-sand-textPrimary transition-all duration-300 ${
+                    mobileMenuOpen ? 'opacity-0' : ''
+                  }`}
+                />
+                <span
+                  className={`block w-4 h-0.5 bg-sand-textPrimary transition-all duration-300 ${
+                    mobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
+                  }`}
+                />
+              </div>
+            </button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            title="Menu"
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={mobileMenuOpen}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden flex flex-col justify-center gap-1.5 w-10 h-10 z-50 relative focus:outline-none items-center"
-          >
-            <span
-              className={`block w-6 h-0.5 bg-sand-textPrimary transition-all duration-300 ${
-                mobileMenuOpen ? 'rotate-45 translate-y-2' : ''
-              }`}
-            />
-            <span
-              className={`block w-6 h-0.5 bg-sand-textPrimary transition-all duration-300 ${
-                mobileMenuOpen ? 'opacity-0' : ''
-              }`}
-            />
-            <span
-              className={`block w-6 h-0.5 bg-sand-textPrimary transition-all duration-300 ${
-                mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''
-              }`}
-            />
-          </button>
         </div>
       </header>
 
@@ -294,6 +315,28 @@ export default function Navbar() {
         </Link>
 
         {/* Auth Actions */}
+        {user && (
+          <div className="flex items-center gap-3 mt-4 mb-2 p-3 bg-white/5 rounded-2xl border border-sand-border/50">
+            {user.user_metadata?.avatar_url ? (
+              <img
+                src={user.user_metadata.avatar_url}
+                alt="Profile"
+                className="w-10 h-10 rounded-full border border-sand-purple/20"
+              />
+            ) : (
+              <div className="w-10 h-10 rounded-full bg-sand-purple/10 flex items-center justify-center text-sand-purple font-bold text-base border border-sand-purple/20 uppercase">
+                {(user.user_metadata?.full_name || user.user_metadata?.name || user.email || 'U').charAt(0).toUpperCase()}
+              </div>
+            )}
+            <div className="text-left">
+              <p className="text-[10px] text-sand-textSecondary">Welcome,</p>
+              <p className="text-sm font-bold text-sand-textPrimary leading-none">
+                {user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0]}
+              </p>
+            </div>
+          </div>
+        )}
+
         <div className="flex gap-4 mt-4">
           {!user ? (
             <>

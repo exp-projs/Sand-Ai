@@ -1,38 +1,30 @@
-import { createServerClient, type CookieOptions } from '@supabase/ssr'
+import { createClient } from '@/utils/supabase/server'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
   const code = searchParams.get('code')
-  // if "next" is in search params, use it as the redirection URL
   const next = searchParams.get('next') ?? '/'
+
+  console.log('Auth callback received code:', code ? 'present' : 'missing')
 
   if (code) {
     const cookieStore = await cookies()
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
-      {
-        cookies: {
-          get(name: string) {
-            return cookieStore.get(name)?.value
-          },
-          set(name: string, value: string, options: CookieOptions) {
-            cookieStore.set({ name, value, ...options })
-          },
-          remove(name: string, options: CookieOptions) {
-            cookieStore.set({ name, value: '', ...options })
-          },
-        },
+    const supabase = createClient(cookieStore)
+    
+    try {
+      const { error } = await supabase.auth.exchangeCodeForSession(code)
+      if (!error) {
+        console.log('Auth callback session exchanged successfully. Redirecting to:', next)
+        return NextResponse.redirect(`${origin}${next}`)
       }
-    )
-    const { error } = await supabase.auth.exchangeCodeForSession(code)
-    if (!error) {
-      return NextResponse.redirect(`${origin}${next}`)
+      console.error('Supabase exchangeCodeForSession error:', error.message)
+    } catch (err: any) {
+      console.error('Unexpected auth callback error:', err.message || err)
     }
   }
 
-  // return the user to an error page with instructions
-  return NextResponse.redirect(`${origin}/auth/auth-code-error`)
+  // Redirect to homepage as a fallback instead of a non-existent error page
+  return NextResponse.redirect(`${origin}${next}`)
 }

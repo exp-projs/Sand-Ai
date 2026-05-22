@@ -1,8 +1,10 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { supabase } from '@/lib/supabase'
+import { User } from '@supabase/supabase-js'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -12,6 +14,19 @@ export default function ExoHero() {
   const imgRef = useRef<HTMLImageElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
   const indicatorRef = useRef<HTMLDivElement>(null)
+  const [user, setUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null)
+    })
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [])
 
   useEffect(() => {
     // 1. Initial entrance animations for text lines
@@ -138,7 +153,7 @@ export default function ExoHero() {
             ref={imgRef}
             src="/giraffe.png"
             alt="Sand AI — Empowering local businesses with AI"
-            className="w-full h-full object-cover object-center scale-125"
+            className="w-full h-full object-cover object-center scale-110"
             style={{
               willChange: 'transform',
             }}
@@ -162,6 +177,23 @@ export default function ExoHero() {
             willChange: 'transform, opacity',
           }}
         >
+          {user && (
+            <>
+              <style>{`
+                @keyframes fadeInDown {
+                  from { opacity: 0; transform: translateY(-10px); }
+                  to { opacity: 1; transform: translateY(0); }
+                }
+                .hero-welcome-badge {
+                  animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                }
+              `}</style>
+              <div className="hero-welcome-badge mb-6 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs md:text-sm font-bold text-white uppercase tracking-wider">
+                👋 Welcome, {user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'User'}
+              </div>
+            </>
+          )}
+
           {/* Masked Headline */}
           <h1 className="exo-headline mb-6 text-white leading-none">
             {headlineLines.map((line, i) => (
