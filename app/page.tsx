@@ -2,7 +2,6 @@
 
 import ExoHero from '@/components/ExoHero'
 import EditorialText from '@/components/EditorialText'
-import AIPillars from '@/components/AIPillars'
 import PortfolioGrid from '@/components/PortfolioGrid'
 import ExoFooter from '@/components/ExoFooter'
 import BokehBackdrop from '@/components/BokehBackdrop'
@@ -108,9 +107,6 @@ export default function Home() {
         <EditorialText
           text="We empower modern enterprises and local brands by bridging advanced AI automation with deep market intelligence."
         />
-
-        {/* Dynamic AI Pillars / Strategy Ticker */}
-        <AIPillars />
 
         {/* Consolidated Staggered 2-Column Grid */}
         <PortfolioGrid items={ALL_PORTFOLIO_ITEMS} startIndex={0} />
