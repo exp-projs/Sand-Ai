@@ -257,7 +257,7 @@ export default function Navbar() {
               className={`flex items-center gap-2.5 px-4 py-2 rounded-full border border-sand-border/80 bg-sand-cardPurple/40 backdrop-blur-md transition-all duration-500 z-50 focus:outline-none ${
                 scrolled || mobileMenuOpen
                   ? 'opacity-100 translate-x-0 pointer-events-auto'
-                  : 'opacity-0 translate-x-4 pointer-events-none md:absolute'
+                  : 'opacity-100 translate-x-0 pointer-events-auto md:opacity-0 md:translate-x-4 md:pointer-events-none md:absolute'
               }`}
             >
               <span className="text-xs font-bold uppercase tracking-wider text-sand-textPrimary hidden md:inline">
