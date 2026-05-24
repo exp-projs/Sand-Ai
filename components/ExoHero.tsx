@@ -31,6 +31,27 @@ export default function ExoHero() {
   useEffect(() => {
     // 1. Initial entrance animations for text lines
     const ctx = gsap.context(() => {
+      // Scale and shift mascot image to the right to prevent text overlap
+      gsap.set(imgRef.current, {
+        scale: 1.02,
+        xPercent: 0,
+        yPercent: -2.5,
+        transformOrigin: 'right top',
+      })
+
+      // Blue dot reveals
+      gsap.fromTo(
+        '.hero-dot',
+        { opacity: 0, scale: 0 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 1.0,
+          ease: 'back.out(1.7)',
+          delay: 0.2,
+        }
+      )
+
       // Headline lines slide up from behind mask
       gsap.fromTo(
         '.hero-headline-line span',
@@ -48,13 +69,13 @@ export default function ExoHero() {
       // Subtitle reveals softly
       gsap.fromTo(
         '.hero-subline',
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: 20 },
         {
-          opacity: 1,
+          opacity: 0.85,
           y: 0,
           duration: 1.2,
           ease: 'power3.out',
-          delay: 0.9,
+          delay: 0.8,
         }
       )
 
@@ -72,55 +93,45 @@ export default function ExoHero() {
       )
     }, pinRef)
 
-    // 2. ScrollTrigger dynamic zoom & pin timeline
+    // 2. ScrollTrigger dynamic parallax timeline (no pinning)
     const isMobile = window.matchMedia('(hover: none)').matches
 
     const scrollTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: pinRef.current,
         start: 'top top',
-        end: '+=100%',
-        scrub: 1, // smooth scrub interpolation
-        pin: true,
-        pinSpacing: true,
+        end: 'bottom top',
+        scrub: true, // smooth scrub interpolation
       },
     })
 
-    // Exo Ape card zoom transformation
-    scrollTimeline.to(cardRef.current, {
-      width: isMobile ? '94vw' : '90vw',
-      height: isMobile ? '80vh' : '85vh',
-      borderRadius: isMobile ? '24px' : '40px',
-      ease: 'power1.inOut',
-    })
-
-    // Background image zoom parallax inside the frame
+    // Premium background image parallax motion
     scrollTimeline.to(
       imgRef.current,
       {
-        scale: 1.0,
-        ease: 'power1.inOut',
-      },
-      0
-    )
-
-    // Parallax shift for text content
-    scrollTimeline.to(
-      textRef.current,
-      {
-        yPercent: isMobile ? -10 : -25,
-        opacity: 0.15,
+        yPercent: 15,
         ease: 'none',
       },
       0
     )
 
-    // Fade out scroll indicator early on scroll down
+    // Sleek parallax shift & fade out for text content
+    scrollTimeline.to(
+      textRef.current,
+      {
+        yPercent: isMobile ? -15 : -30,
+        opacity: 0,
+        ease: 'none',
+      },
+      0
+    )
+
+    // Fade out scroll indicator on scroll down
     scrollTimeline.to(
       indicatorRef.current,
       {
         opacity: 0,
-        y: -20,
+        y: -30,
         ease: 'none',
       },
       0
@@ -134,7 +145,7 @@ export default function ExoHero() {
     }
   }, [])
 
-  const headlineLines = ['Smarter', 'Scale.', 'Autonomous', 'Growth.']
+  const headlineLines = ['Smarter', 'Growth', "for Bharat's", 'Local Business.']
 
   return (
     <div ref={pinRef} className="hero-pin-wrapper w-full h-screen bg-sand-bg flex items-center justify-center relative overflow-hidden">
@@ -153,9 +164,11 @@ export default function ExoHero() {
             ref={imgRef}
             src="/giraffe.png"
             alt="Sand AI — Empowering local businesses with AI"
-            className="w-full h-full object-cover object-center scale-110"
+            className="w-full h-full object-cover"
             style={{
               willChange: 'transform',
+              objectPosition: 'right -35px',
+              transformOrigin: 'right top',
             }}
             loading="eager"
             decoding="async"
@@ -168,6 +181,12 @@ export default function ExoHero() {
 
         {/* Gradient Overlay */}
         <div className="hero-gradient absolute inset-0 z-[1]" />
+
+        {/* Text Contrast Backdrop Overlay */}
+        <div className="absolute inset-0 z-[2] bg-gradient-to-r from-slate-950/70 via-slate-950/30 to-transparent pointer-events-none" />
+
+        {/* Top Navbar Contrast Overlay for Dark Mode */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-slate-950/60 to-transparent z-[2] pointer-events-none hidden dark:block" />
 
         {/* Content Section */}
         <div
@@ -201,6 +220,9 @@ export default function ExoHero() {
             </>
           )}
 
+          {/* Blue Accent Dot */}
+          <div className="hero-dot opacity-0 w-3 h-3 bg-blue-500 rounded-full mb-6 shadow-[0_0_12px_rgba(59,130,246,0.6)]" />
+
           {/* Masked Headline */}
           <h1 className="exo-headline mb-6 text-white leading-none">
             {headlineLines.map((line, i) => (
@@ -208,15 +230,23 @@ export default function ExoHero() {
                 key={i}
                 className="hero-headline-line block overflow-hidden"
               >
-                <span className="block will-change-transform">
-                  {line}
+                <span className="block will-change-transform pb-1">
+                  {i === 2 ? (
+                    <>
+                      for <span className="text-sand-purple">Bharat's</span>
+                    </>
+                  ) : i === 3 ? (
+                    <span className="text-sand-orange">Local Business.</span>
+                  ) : (
+                    line
+                  )}
                 </span>
               </span>
             ))}
           </h1>
 
           {/* Subline */}
-          <p className="hero-subline text-white/80 max-w-[520px] leading-relaxed opacity-0 text-sm md:text-base font-normal">
+          <p className="hero-subline text-white/70 max-w-[520px] leading-relaxed opacity-0 text-sm md:text-base font-normal">
             Deploying conversational intelligence, custom digital environments, and autonomous paid acquisition models—tailored for Tier-2 brands, retail commerce, and modern medical clinics.
           </p>
         </div>

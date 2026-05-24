@@ -10,47 +10,38 @@ const SERVICES = [
   {
     id: 's1',
     number: '01',
-    icon: '/icons/icon-chatbot.jpg',
-    title: 'AI Chatbot',
-    description: 'Intelligent chatbots that engage, qualify, and convert 24/7 on WhatsApp.',
-    features: ['24/7 WhatsApp Support', 'Order Taking AI', 'Multi-language Chat', 'Natural Conversations'],
-    href: '/chatbot'
+    icon: '/icons/icon-meta-ads.jpg',
+    title: 'Meta Ads',
+    description: 'High-ROI Facebook & Instagram ad campaigns created and optimized by AI.',
+    features: ['Auto-Generated Creative', 'Smart Budget Optimizer', 'Local Audience Targeting', 'Instant Lead Sync'],
+    href: '/meta-ads'
   },
   {
     id: 's2',
     number: '02',
-    icon: '/icons/icon-social.jpg',
-    title: 'Social Media',
-    description: 'Auto-generated content, festival posts, and viral reels scripts.',
-    features: ['Auto Festival Posts', 'Reels Scripts', 'Smart Scheduling', 'SEO Captions'],
-    href: '/social-media'
+    icon: '/icons/icon-website.png',
+    title: 'Web Development',
+    description: 'Beautiful, high-converting websites built to scale and rank #1 on Google.',
+    features: ['Local SEO Optimizer', 'Mobile-First Design', 'Online Booking', 'Product Catalogs'],
+    href: '/web-development'
   },
   {
     id: 's3',
     number: '03',
-    icon: '/icons/icon-website.jpg',
-    title: 'AI Website',
-    description: 'Beautiful, high-converting websites built in minutes — for any business.',
-    features: ['Local SEO Optimizer', 'Mobile-First Design', 'Online Booking', 'Product Catalogs'],
-    href: '/website'
+    icon: '/icons/icon-app.png',
+    title: 'App Dev',
+    description: 'Bespoke iOS and Android mobile applications customized to your business goals.',
+    features: ['Native Performance', 'Offline Cache Sync', 'Push Notifications', 'One-Click Checkout'],
+    href: '/app-dev'
   },
   {
     id: 's4',
     number: '04',
-    icon: '/icons/icon-app.jpg',
-    title: 'Mailing & Loyalty',
-    description: 'Automated retention engine with SMS/Email alerts and rewards.',
-    features: ['Retention Marketing', 'SMS Direct Alerts', 'Loyalty Points', 'Review Collector'],
-    href: '/mailing'
-  },
-  {
-    id: 's5',
-    number: '05',
-    icon: '/icons/icon-meta-ads.jpg',
-    title: 'AI Meta Ads',
-    description: 'High-ROI Facebook & Instagram ad campaigns created and optimized by AI.',
-    features: ['Auto-Generated Creative', 'Smart Budget Optimizer', 'Local Audience Targeting', 'Instant Lead Sync'],
-    href: '/meta-ads'
+    icon: '/icons/icon-chatbot.png',
+    title: 'Conversational AI',
+    description: 'Intelligent chatbots that engage, qualify, and convert 24/7 on WhatsApp.',
+    features: ['24/7 WhatsApp Support', 'Order Taking AI', 'Multi-language Chat', 'Natural Conversations'],
+    href: '/chatbot'
   },
 ]
 

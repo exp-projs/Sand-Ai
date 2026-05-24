@@ -1,8 +1,9 @@
 'use client'
 
 import ExoHero from '@/components/ExoHero'
-import EditorialText from '@/components/EditorialText'
+import InteractiveNetwork from '@/components/InteractiveNetwork'
 import PortfolioGrid from '@/components/PortfolioGrid'
+import KineticMarquee from '@/components/KineticMarquee'
 import ExoFooter from '@/components/ExoFooter'
 import BokehBackdrop from '@/components/BokehBackdrop'
 import BackgroundSpotlight from '@/components/BackgroundSpotlight'
@@ -12,50 +13,6 @@ import { useEffect } from 'react'
 
 const ALL_PORTFOLIO_ITEMS = [
   {
-    title: 'Conversational Core',
-    category: 'Conversational AI',
-    image: '/icons/icon-chatbot.jpg',
-    href: '/chatbot',
-    features: [
-      '24/7 autonomous customer acquisition and support',
-      'Instant lead routing & catalog synchronization',
-      'Advanced multilingual dialog processing',
-    ],
-  },
-  {
-    title: 'Autonomous Social',
-    category: 'Content Automation',
-    image: '/icons/icon-social.jpg',
-    href: '/social-media',
-    features: [
-      'Brand-aligned visual content asset pipelines',
-      'Sleek viral scripts & real-time trend monitors',
-      'Scheduled distribution automation systems',
-    ],
-  },
-  {
-    title: 'Digital Architecture',
-    category: 'Web Development',
-    image: '/icons/icon-website.jpg',
-    href: '/website',
-    features: [
-      'Premium, high-converting digital storefronts',
-      'Multi-region advanced local SEO optimization',
-      'Ultra-fast Next.js dynamic load architecture',
-    ],
-  },
-  {
-    title: 'Lifecycle Marketing',
-    category: 'Retention Marketing',
-    image: '/icons/icon-app.jpg',
-    href: '/mailing',
-    features: [
-      'Automated email and SMS retention loops',
-      'Frosted glass loyalty reward frameworks',
-      'High-converting cart recovery logic',
-    ],
-  },
-  {
     title: 'Performance Ads',
     category: 'Paid Advertising',
     image: '/icons/icon-meta-ads.jpg',
@@ -64,6 +21,39 @@ const ALL_PORTFOLIO_ITEMS = [
       'Autonomous high-volume creative copy testing',
       'Lookalike audience targeting systems',
       'Adaptive real-time bid optimization engines',
+    ],
+  },
+  {
+    title: 'Digital Architecture',
+    category: 'Web Development',
+    image: '/icons/icon-website.jpg',
+    href: '/web-development',
+    features: [
+      'Premium, high-converting digital storefronts',
+      'Multi-region advanced local SEO optimization',
+      'Ultra-fast Next.js dynamic load architecture',
+    ],
+  },
+  {
+    title: 'Mobile Applications',
+    category: 'App Development',
+    image: '/icons/icon-app.jpg',
+    href: '/app-dev',
+    features: [
+      'Bespoke native iOS and Android configurations',
+      'Offline-first client data synchronization',
+      'Targeted push notifications & secure checkout',
+    ],
+  },
+  {
+    title: 'Conversational Core',
+    category: 'Conversational AI',
+    image: '/icons/icon-chatbot.jpg',
+    href: '/chatbot',
+    features: [
+      '24/7 autonomous customer acquisition and support',
+      'Instant lead routing & catalog synchronization',
+      'Advanced multilingual dialog processing',
     ],
   },
 ]
@@ -104,17 +94,12 @@ export default function Home() {
 
         <ExoHero />
 
-        <EditorialText
-          text="We empower modern enterprises and local brands by bridging advanced AI automation with deep market intelligence."
-        />
+        <InteractiveNetwork />
 
         {/* Consolidated Staggered 2-Column Grid */}
         <PortfolioGrid items={ALL_PORTFOLIO_ITEMS} startIndex={0} />
 
-        <EditorialText
-          text="From autonomous conversational pipelines to high-impact paid acquisition — every module is engineered to scale operations."
-          align="left"
-        />
+        <KineticMarquee />
       </main>
 
       <ExoFooter />

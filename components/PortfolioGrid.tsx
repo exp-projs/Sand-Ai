@@ -30,11 +30,10 @@ const CARD_GRADIENTS = [
 
 // High-resolution case study editorial photography
 const CARD_EDITORIAL_IMAGES = [
-  '/editorial/chatbot_bg.jpg',
-  '/editorial/social_bg.jpg',
+  '/editorial/meta_ads_bg.jpg',
   '/editorial/website_bg.jpg',
   '/editorial/mailing_bg.jpg',
-  '/editorial/meta_ads_bg.jpg',
+  '/editorial/chatbot_bg.jpg',
 ]
 
 

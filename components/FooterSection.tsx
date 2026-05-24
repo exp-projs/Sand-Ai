@@ -33,11 +33,10 @@ export default function FooterSection() {
           <h4 className="font-bold text-lg mb-8">Products</h4>
           <ul className="space-y-4">
             {[
-              { label: 'AI Chatbot', href: '/chatbot' },
-              { label: 'Social Media', href: '/social-media' },
-              { label: 'AI Website', href: '/website' },
-              { label: 'Mailing & Loyalty', href: '/mailing' },
-              { label: 'AI Meta Ads', href: '/meta-ads' }
+              { label: 'Meta Ads', href: '/meta-ads' },
+              { label: 'Web Development', href: '/web-development' },
+              { label: 'App Dev', href: '/app-dev' },
+              { label: 'Conversational AI', href: '/chatbot' }
             ].map(link => (
               <li key={link.label}>
                 <Link href={link.href} className="text-sm text-sand-textSecondary hover:text-sand-orange transition-colors">

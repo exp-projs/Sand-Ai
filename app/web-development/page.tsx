@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import ProductHero from '@/components/ProductHero'
 import { Layout, Smartphone, Search, ShoppingCart } from 'lucide-react'
 
-export default function WebsitePage() {
+export default function WebDevelopmentPage() {
   return (
     <main className="min-h-screen bg-sand-bg">
       <ProductHero 

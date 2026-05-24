@@ -219,7 +219,7 @@ body {
 
 .exo-headline {
   font-family: var(--font-poppins), sans-serif;
-  font-size: clamp(3.5rem, 9vw, 8rem);
+  font-size: clamp(3.6rem, 9.6vw, 8.6rem);
   font-weight: 700;
   line-height: 0.95;
   letter-spacing: -0.03em;
@@ -239,7 +239,7 @@ body {
 .hero-gradient {
   background: linear-gradient(
     to bottom,
-    transparent 20%,
+    transparent 45%,
     var(--sand-deep-purple) 100%
   );
 }
@@ -247,7 +247,7 @@ body {
 .dark .hero-gradient {
   background: linear-gradient(
     to bottom,
-    transparent 20%,
+    transparent 45%,
     #060510 100%
   );
 }

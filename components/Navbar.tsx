@@ -15,11 +15,10 @@ const NAV_LINKS = [
 ]
 
 const PRODUCT_LINKS = [
-  { label: 'AI Chatbot', href: '/chatbot', description: '24/7 WhatsApp automation', icon: '🤖' },
-  { label: 'Social Media', href: '/social-media', description: 'Auto-posts & Reels scripts', icon: '📱' },
-  { label: 'AI Website', href: '/website', description: 'Local SEO optimized sites', icon: '🌐' },
-  { label: 'Mailing & Loyalty', href: '/mailing', description: 'Retention & Rewards', icon: '✉️' },
-  { label: 'AI Meta Ads', href: '/meta-ads', description: 'High-ROI Facebook & Instagram ads', icon: '📈' },
+  { label: 'Meta Ads', href: '/meta-ads', description: 'High-ROI Facebook & Instagram ads', icon: '📈' },
+  { label: 'Web Development', href: '/web-development', description: 'Local SEO optimized sites', icon: '🌐' },
+  { label: 'App Dev', href: '/app-dev', description: 'Tailored iOS & Android apps', icon: '📱' },
+  { label: 'Conversational AI', href: '/chatbot', description: '24/7 WhatsApp automation', icon: '🤖' },
 ]
 
 export default function Navbar() {
