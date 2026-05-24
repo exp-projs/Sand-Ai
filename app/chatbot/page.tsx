@@ -14,7 +14,7 @@ export default function ChatbotPage() {
         highlightedTitle="Neither Does Your AI."
         description="Pick up every message on WhatsApp, answer queries instantly, and take orders even at 2 AM. SandAI Chatbot is the tireless employee your business deserves."
         ctaText="Get Started for Free"
-        imageSrc="/icons/icon-chatbot.jpg"
+        imageSrc="/icons/icon-chatbot.png"
         colorVariant="purple"
       />
 

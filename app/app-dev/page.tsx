@@ -122,7 +122,7 @@ export default function AppDevPage() {
         highlightedTitle="Their Pocket."
         description="Deploy bespoke iOS and Android native apps built to convert, engage, and retain. From custom loyalty systems to instant database synchronization, we handle the entire engineering pipeline."
         ctaText="Build My Mobile App"
-        imageSrc="/icons/icon-app.jpg"
+        imageSrc="/icons/icon-app.png"
         colorVariant="orange"
       />
 

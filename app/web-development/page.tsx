@@ -14,7 +14,7 @@ export default function WebDevelopmentPage() {
         highlightedTitle="Digital Front Door."
         description="A fast, mobile-friendly website with local SEO means when someone searches for your category in your city — you appear first. Simple, professional, and built in minutes."
         ctaText="Build My Website"
-        imageSrc="/icons/icon-website.jpg"
+        imageSrc="/icons/icon-website.png"
         colorVariant="purple"
       />
 

@@ -26,7 +26,7 @@ const ALL_PORTFOLIO_ITEMS = [
   {
     title: 'Digital Architecture',
     category: 'Web Development',
-    image: '/icons/icon-website.jpg',
+    image: '/icons/icon-website.png',
     href: '/web-development',
     features: [
       'Premium, high-converting digital storefronts',
@@ -37,7 +37,7 @@ const ALL_PORTFOLIO_ITEMS = [
   {
     title: 'Mobile Applications',
     category: 'App Development',
-    image: '/icons/icon-app.jpg',
+    image: '/icons/icon-app.png',
     href: '/app-dev',
     features: [
       'Bespoke native iOS and Android configurations',
@@ -48,7 +48,7 @@ const ALL_PORTFOLIO_ITEMS = [
   {
     title: 'Conversational Core',
     category: 'Conversational AI',
-    image: '/icons/icon-chatbot.jpg',
+    image: '/icons/icon-chatbot.png',
     href: '/chatbot',
     features: [
       '24/7 autonomous customer acquisition and support',
