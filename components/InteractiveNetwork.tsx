@@ -248,14 +248,14 @@ export default function InteractiveNetwork() {
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-sand-purple"></span>
           </span>
           <span className="text-[10px] md:text-xs font-semibold tracking-widest text-sand-purple uppercase font-inter">
-            Sand AI Integration
+            The Sand Ecosystem
           </span>
         </div>
         <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white font-poppins tracking-tight mb-2">
-          Bridging Intelligence & Automation
+          Perfectly Synced.
         </h3>
         <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400 font-inter leading-relaxed max-w-[320px] mx-auto">
-          Interact to visualize dynamic node pipelines adapting in real-time.
+          We connect your ads, reporting, and CRM so your business flows without friction. Move your cursor to interact.
         </p>
       </div>
     </section>
