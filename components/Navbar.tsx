@@ -9,7 +9,7 @@ import { ChevronDown } from 'lucide-react'
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
-  { label: 'About Us', href: '#about' },
+  { label: 'About Us', href: '/about' },
   { label: 'Pricing', href: '/pricing' },
 ]
 
