@@ -15,7 +15,7 @@ const ALL_PORTFOLIO_ITEMS = [
   {
     title: 'Google MCC Setup',
     category: 'Google Ads Manager Accounts',
-    image: '/icons/icon-website.png',
+    image: '/icons/icon-google-mcc.png',
     href: '/google-mcc',
     features: [
       'Consolidated Billing & Invoicing across all client Google Ads accounts',
@@ -39,7 +39,7 @@ const ALL_PORTFOLIO_ITEMS = [
   {
     title: 'Looker Studio Dashboards',
     category: 'Automated Custom Reporting',
-    image: '/icons/icon-website.png',
+    image: '/icons/icon-looker-studio.png',
     href: '/looker-studio',
     features: [
       'Direct API integrations with Google Ads, Meta Ads, and GA4',
@@ -51,7 +51,7 @@ const ALL_PORTFOLIO_ITEMS = [
   {
     title: 'CRM Integration',
     category: 'Lead Routing & Pipelines',
-    image: '/icons/icon-app.png',
+    image: '/icons/icon-crm.png',
     href: '/crm-integration',
     features: [
       'Automatic lead routing to Google Sheets and Notion databases',
@@ -63,7 +63,7 @@ const ALL_PORTFOLIO_ITEMS = [
   {
     title: 'Client Communication',
     category: 'Instant Notification Systems',
-    image: '/icons/icon-chatbot.png',
+    image: '/icons/icon-alerts.png',
     href: '/client-communication',
     features: [
       'Instant Slack notification alerts on new lead signup submissions',

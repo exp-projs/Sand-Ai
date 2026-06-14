@@ -37,6 +37,7 @@ export default function MetaBusinessManagerPage() {
         ctaText="Setup Meta Business Suite"
         imageSrc="/icons/icon-meta-ads.jpg"
         colorVariant="orange"
+        onCtaClick={() => document.getElementById('intake-form')?.scrollIntoView({ behavior: 'smooth' })}
       />
 
       {/* Benefits Grid */}
@@ -163,7 +164,7 @@ export default function MetaBusinessManagerPage() {
       </section>
 
       {/* Setup Request Section */}
-      <section className="py-24 px-6 max-w-7xl mx-auto">
+      <section id="intake-form" className="py-24 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-black text-sand-textPrimary mb-4">Initialize Business Suite Setup</h2>
           <p className="text-sand-textSecondary max-w-xl mx-auto text-sm">

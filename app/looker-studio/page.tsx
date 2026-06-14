@@ -24,8 +24,9 @@ export default function LookerStudioPage() {
         highlightedTitle="Smarter Spending."
         description="Stop waiting until the end of the month for reporting spreadsheets. Connect Google Ads, Meta Ads, and GA4 to interactive Looker Studio dashboards to view combined spends, leads, and conversion costs in real-time."
         ctaText="Request Custom Dashboard"
-        imageSrc="/icons/icon-website.png"
+        imageSrc="/icons/icon-looker-studio.png"
         colorVariant="purple"
+        onCtaClick={() => document.getElementById('intake-form')?.scrollIntoView({ behavior: 'smooth' })}
       />
 
       {/* Benefits Grid */}
@@ -169,7 +170,7 @@ export default function LookerStudioPage() {
       </section>
 
       {/* Setup Form Section */}
-      <section className="py-24 px-6 max-w-7xl mx-auto">
+      <section id="intake-form" className="py-24 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-black text-sand-textPrimary mb-4">Request Custom Dashboard Setup</h2>
           <p className="text-sand-textSecondary max-w-xl mx-auto text-sm">

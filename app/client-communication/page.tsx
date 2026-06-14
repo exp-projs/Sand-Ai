@@ -36,8 +36,9 @@ export default function ClientCommunicationPage() {
         highlightedTitle="Zero Delayed Follow-ups."
         description="Connect lead generation tools directly to your team Slack channels or WhatsApp numbers. Get notified the exact second a client requests setup, allowing your sales team to call back instantly when high intent is active."
         ctaText="Request Alerts Setup"
-        imageSrc="/icons/icon-website.png"
+        imageSrc="/icons/icon-alerts.png"
         colorVariant="orange"
+        onCtaClick={() => document.getElementById('intake-form')?.scrollIntoView({ behavior: 'smooth' })}
       />
 
       {/* Benefits Grid */}
@@ -139,7 +140,7 @@ export default function ClientCommunicationPage() {
       </section>
 
       {/* Setup Form Section */}
-      <section className="py-24 px-6 max-w-7xl mx-auto">
+      <section id="intake-form" className="py-24 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-black text-sand-textPrimary mb-4">Request Alerts Setup</h2>
           <p className="text-sand-textSecondary max-w-xl mx-auto text-sm">

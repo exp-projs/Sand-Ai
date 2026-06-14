@@ -32,8 +32,9 @@ export default function GoogleMCCPage() {
         highlightedTitle="Zero Account Chaos."
         description="Consolidate all client Google Ads accounts under a professional Google Manager Account (MCC). Securely share access with teams, manage consolidated billing, and apply unified audience sheets without sharing passwords."
         ctaText="Request MCC Setup"
-        imageSrc="/icons/icon-website.png"
+        imageSrc="/icons/icon-google-mcc.png"
         colorVariant="purple"
+        onCtaClick={() => document.getElementById('intake-form')?.scrollIntoView({ behavior: 'smooth' })}
       />
 
       {/* Benefits Grid */}
@@ -184,7 +185,7 @@ export default function GoogleMCCPage() {
       </section>
 
       {/* Setup Form Section */}
-      <section className="py-24 px-6 max-w-7xl mx-auto">
+      <section id="intake-form" className="py-24 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-black text-sand-textPrimary mb-4">Initialize MCC Setup</h2>
           <p className="text-sand-textSecondary max-w-xl mx-auto text-sm">

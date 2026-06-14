@@ -14,6 +14,7 @@ interface ProductHeroProps {
   ctaText: string
   imageSrc: string
   colorVariant?: 'purple' | 'orange'
+  onCtaClick?: () => void
 }
 
 export default function ProductHero({
@@ -23,7 +24,8 @@ export default function ProductHero({
   description,
   ctaText,
   imageSrc,
-  colorVariant = 'purple'
+  colorVariant = 'purple',
+  onCtaClick
 }: ProductHeroProps) {
   const containerRef = useRef<HTMLElement>(null)
   
@@ -68,7 +70,10 @@ export default function ProductHero({
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-            <button className={`w-full sm:w-auto rounded-full ${colorVariant === 'purple' ? 'bg-sand-purple' : 'bg-sand-orange'} px-8 py-4 text-base font-bold text-white shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 group`}>
+            <button 
+              onClick={onCtaClick}
+              className={`w-full sm:w-auto rounded-full ${colorVariant === 'purple' ? 'bg-sand-purple' : 'bg-sand-orange'} px-8 py-4 text-base font-bold text-white shadow-lg transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 group`}
+            >
               {ctaText}
               <span className="transition-transform group-hover:translate-x-1">→</span>
             </button>

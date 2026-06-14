@@ -27,8 +27,16 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
   const [user, setUser] = useState<User | null>(null)
+  const [isServicePage, setIsServicePage] = useState(false)
 
   useEffect(() => {
+    // Set service page status
+    if (typeof window !== 'undefined') {
+      setIsServicePage(
+        ['/google-mcc', '/meta-business-manager', '/looker-studio', '/crm-integration', '/client-communication'].includes(window.location.pathname)
+      )
+    }
+
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
@@ -241,7 +249,7 @@ export default function Navbar() {
               )}
 
               <Link
-                href="#contact"
+                href={isServicePage ? '#intake-form' : '#services'}
                 className="rounded-full bg-sand-orange px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#E67A00] transition-colors"
               >
                 Book a Call
@@ -318,7 +326,7 @@ export default function Navbar() {
 
         {/* CTA */}
         <Link
-          href="#contact"
+          href={isServicePage ? '#intake-form' : '#services'}
           onClick={() => setMobileMenuOpen(false)}
           className="!text-sand-orange"
         >
