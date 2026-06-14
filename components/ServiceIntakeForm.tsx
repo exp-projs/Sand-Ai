@@ -48,8 +48,9 @@ export default function ServiceIntakeForm({
     const container = containerRef.current
     if (!container) return
 
-    const colors = ['#6461FF', '#FF8A00', '#3B82F6', '#10B981', '#EC4899', '#F59E0B']
-    const numConfetti = 60
+    // Soft, calming pastel colors
+    const colors = ['#A3C1AD', '#D4A373', '#9EB2C0', '#E6CBB8', '#C3B1E1']
+    const numConfetti = 30 // Reduced for a quieter effect
 
     for (let i = 0; i < numConfetti; i++) {
       const el = document.createElement('div')
@@ -60,24 +61,24 @@ export default function ServiceIntakeForm({
       el.style.zIndex = '50'
       container.appendChild(el)
 
-      // Physics/angles for natural explosion distribution
+      // Physics/angles for a gentler drift
       const angle = Math.random() * Math.PI * 2
-      const distance = 80 + Math.random() * 180
+      const distance = 40 + Math.random() * 100 // Less explosive spread
       const destX = Math.cos(angle) * distance
-      const destY = Math.sin(angle) * distance - (60 + Math.random() * 80) // Initial upward launch
-      const rotation = Math.random() * 360
-      const scale = 0.4 + Math.random() * 1.2
+      const destY = Math.sin(angle) * distance - (30 + Math.random() * 40) // Gentler upward drift
+      const rotation = Math.random() * 180 // Slower rotation
+      const scale = 0.6 + Math.random() * 0.8
 
       gsap.fromTo(el,
-        { x: 0, y: 0, scale: 0, rotation: 0, opacity: 1 },
+        { x: 0, y: 0, scale: 0, rotation: 0, opacity: 0.8 },
         {
           x: destX,
           y: destY,
           scale: scale,
-          rotation: rotation + 720,
+          rotation: rotation + 360,
           opacity: 0,
-          duration: 1.2 + Math.random() * 1.2,
-          ease: 'power3.out',
+          duration: 1.8 + Math.random() * 1.5, // Slower fall
+          ease: 'power2.out',
           onComplete: () => el.remove()
         }
       )
@@ -89,46 +90,46 @@ export default function ServiceIntakeForm({
     if (loadingUser) return
 
     if (!user) {
-      // Animate lock screen elements
+      // Animate lock screen elements (slower, softer)
       const tl = gsap.timeline()
-      tl.to('.lock-card-wrapper', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+      tl.to('.lock-card-wrapper', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' })
         .fromTo('.lock-animate',
-          { opacity: 0, y: 15 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out' },
-          '-=0.3'
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out' },
+          '-=0.4'
         )
     } else if (success) {
       // Animate success screen elements
       const tl = gsap.timeline()
-      tl.to('.success-card-wrapper', { opacity: 1, duration: 0.5 })
+      tl.to('.success-card-wrapper', { opacity: 1, duration: 0.8 })
         .fromTo('.success-animate',
-          { opacity: 0, scale: 0.95, y: 10 },
-          { opacity: 1, scale: 1, y: 0, duration: 0.5, stagger: 0.08, ease: 'back.out(1.2)' },
-          '-=0.2'
+          { opacity: 0, scale: 0.98, y: 5 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out' },
+          '-=0.4'
         )
-        .to('.success-check-circle', { strokeDashoffset: 0, duration: 0.5, ease: 'power2.out' }, '-=0.1')
-        .to('.success-check-path', { strokeDashoffset: 0, duration: 0.5, ease: 'power2.out' }, '-=0.2')
+        .to('.success-check-circle', { strokeDashoffset: 0, duration: 0.8, ease: 'power2.out' }, '-=0.2')
+        .to('.success-check-path', { strokeDashoffset: 0, duration: 0.8, ease: 'power2.out' }, '-=0.4')
 
       createConfettiBurst()
     } else {
       // Animate active form elements
       const tl = gsap.timeline()
-      tl.to('.form-card-wrapper', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+      tl.to('.form-card-wrapper', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' })
         .fromTo('.form-field-animate',
-          { opacity: 0, y: 15 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out' },
-          '-=0.4'
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: 'power2.out' },
+          '-=0.5'
         )
 
-      // Hover / Active button states
+      // Hover / Active button states (softer shadow, slower scale)
       const submitBtn = containerRef.current?.querySelector('.submit-btn-gsap')
       if (submitBtn) {
         const hoverTween = gsap.to(submitBtn, {
-          scale: 1.015,
+          scale: 1.01,
           boxShadow: colorVariant === 'orange' 
-            ? '0 10px 25px -5px rgba(255, 138, 0, 0.4)' 
-            : '0 10px 25px -5px rgba(100, 97, 255, 0.4)',
-          duration: 0.3,
+            ? '0 8px 20px -5px rgba(212, 163, 115, 0.25)' 
+            : '0 8px 20px -5px rgba(107, 138, 122, 0.25)',
+          duration: 0.5,
           paused: true
         })
         
