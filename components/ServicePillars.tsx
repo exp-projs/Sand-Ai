@@ -44,7 +44,7 @@ export default function ServicePillars() {
             </span>
           </div>
           <h2 className="text-4xl md:text-5xl font-poppins font-bold text-sand-textPrimary mb-6 tracking-tight">
-            Omnichannel Dominance.
+            Complete Digital Presence.
           </h2>
           <p className="text-base md:text-lg text-sand-textSecondary leading-relaxed">
             We don't just run ads; we engineer holistic digital ecosystems. By integrating paid acquisition with organic visibility and community engagement, we build sustainable growth engines that dominate your market.
