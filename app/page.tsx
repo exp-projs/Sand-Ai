@@ -1,7 +1,6 @@
 'use client'
 
 import ExoHero from '@/components/ExoHero'
-import CorePhilosophy from '@/components/CorePhilosophy'
 import InteractiveNetwork from '@/components/InteractiveNetwork'
 import PortfolioGrid from '@/components/PortfolioGrid'
 import KineticMarquee from '@/components/KineticMarquee'
@@ -111,8 +110,6 @@ export default function Home() {
         <div className="parallax-bg-word outline-text text-[14vw] top-[83%] id-target opacity-100 select-none z-0">ALERTS</div>
 
         <ExoHero />
-
-        <CorePhilosophy />
 
         <InteractiveNetwork />
 
