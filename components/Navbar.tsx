@@ -9,16 +9,16 @@ import { ChevronDown } from 'lucide-react'
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
-  { label: 'Case Studies', href: '#case-studies' },
   { label: 'About Us', href: '#about' },
   { label: 'Pricing', href: '/pricing' },
 ]
 
 const PRODUCT_LINKS = [
-  { label: 'Meta Ads', href: '/meta-ads', description: 'High-ROI Facebook & Instagram ads', icon: '📈' },
-  { label: 'Web Development', href: '/web-development', description: 'Local SEO optimized sites', icon: '🌐' },
-  { label: 'App Dev', href: '/app-dev', description: 'Tailored iOS & Android apps', icon: '📱' },
-  { label: 'Conversational AI', href: '/chatbot', description: '24/7 WhatsApp automation', icon: '🤖' },
+  { label: 'Google MCC Setup', href: '/google-mcc', description: 'Centralized client account management & billing', icon: '🏢' },
+  { label: 'Meta Business Manager', href: '/meta-business-manager', description: 'Secure assets, pages, pixels & permissions', icon: '🔑' },
+  { label: 'Looker Studio Dashboards', href: '/looker-studio', description: 'Real-time blended reporting & analytics', icon: '📊' },
+  { label: 'CRM Integration', href: '/crm-integration', description: 'Automated Notion/Sheets customer pipelines', icon: '💼' },
+  { label: 'Client Communication', href: '/client-communication', description: 'Slack notifications & WhatsApp alert triggers', icon: '📱' },
 ]
 
 export default function Navbar() {
@@ -141,7 +141,7 @@ export default function Navbar() {
                     : 'scale-y-95 opacity-0 pointer-events-none'
                 }`}
               >
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   {PRODUCT_LINKS.map((product) => (
                     <Link
                       key={product.label}
@@ -301,9 +301,20 @@ export default function Navbar() {
         ))}
 
         {/* Services */}
-        <Link href="#services" onClick={() => setMobileMenuOpen(false)}>
-          Services
-        </Link>
+        <div className="flex flex-col gap-2.5 px-4 py-3 bg-sand-cardPurple/30 rounded-2xl border border-sand-border/40 text-left my-2">
+          <div className="text-[10px] font-bold text-sand-textSecondary uppercase tracking-widest mb-1.5">Our Services</div>
+          {PRODUCT_LINKS.map((product) => (
+            <Link
+              key={product.label}
+              href={product.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-sm font-semibold text-sand-textPrimary hover:text-sand-purple flex items-center gap-2"
+            >
+              <span className="text-base">{product.icon}</span>
+              {product.label}
+            </Link>
+          ))}
+        </div>
 
         {/* CTA */}
         <Link

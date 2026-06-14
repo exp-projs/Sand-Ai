@@ -9,38 +9,36 @@ import Link from 'next/link'
 
 const PRICING_TIERS = [
   {
-    name: 'Basic Suite',
-    monthlyPrice: 299,
-    yearlyPrice: 239, // ~20% discount
-    description: 'Essential AI capabilities for local brands and medical clinics looking to establish automated customer touchpoints.',
+    name: 'Starter Retainer',
+    monthlyPrice: '₹15K–25K',
+    yearlyPrice: '₹12K–20K', // ~20% discount
+    description: 'Perfect for initial business validation and setting up foundational B2B acquisition pipelines.',
     features: [
-      'Conversational AI Core (24/7 WhatsApp Agent)',
-      'Basic Web Presence layout setup',
-      'Standard lead routing notifications',
-      'Automated performance digest reports',
-      'Next.js secure hosting platform setup',
-      'Standard customer ticket email support',
+      '1 advertising platform management',
+      'Basic ad campaign setup & optimization',
+      'Monthly performance dashboard & reporting',
+      'Business infrastructure setup guidance',
+      'Proposals & invoice templates access',
     ],
     isPopular: false,
     color: 'from-blue-500/20 to-indigo-500/20 dark:from-blue-500/10 dark:to-indigo-500/10',
     accentColor: 'bg-gradient-to-r from-blue-500 to-indigo-500',
     glowColor: 'rgba(59, 130, 246, 0.15)',
-    ctaLabel: 'Get Started Today',
-    href: '/signup?plan=basic',
+    ctaLabel: 'Deploy Starter Plan',
+    href: '/signup?plan=starter',
   },
   {
-    name: 'Growth Enterprise',
-    monthlyPrice: 599,
-    yearlyPrice: 479,
-    description: 'Our flagship suite. Complete automation and high-speed web presence engineered to scale customer acquisition.',
+    name: 'Growth Retainer',
+    monthlyPrice: '₹35K–50K',
+    yearlyPrice: '₹28K–40K',
+    description: 'Our flagship plan to systemise client delivery and scale operations.',
     features: [
-      'Everything in Basic Suite',
-      'Web Development Suite (Premium custom SEO site)',
-      'Meta Ads Campaign setup & routing',
-      'Priority lead synchronization webhooks',
-      'Interactive real-time lead alert dashboard',
-      'Advanced transactional alerts configuration',
-      'Dedicated technical strategy consultant',
+      '2 advertising platforms management',
+      'Full-funnel campaign architecture',
+      'Bi-weekly performance dashboards & reporting',
+      'Standardized client onboarding checklist',
+      'Templated Looker Studio report decks',
+      'Documented setup SOPs & SLAs compliance',
     ],
     isPopular: true,
     color: 'from-purple-500/20 to-pink-500/20 dark:from-purple-500/10 dark:to-pink-500/10',
@@ -50,43 +48,43 @@ const PRICING_TIERS = [
     href: '/signup?plan=growth',
   },
   {
-    name: 'Scale Blueprint',
-    monthlyPrice: 999,
-    yearlyPrice: 799,
-    description: 'Fully tailored, custom-engineered intelligence stack for high-volume multi-location businesses.',
+    name: 'Scale Retainer',
+    monthlyPrice: '₹60K–80K',
+    yearlyPrice: '₹48K–64K',
+    description: 'Complete cross-platform domination, custom reporting moats, and dedicated strategic support.',
     features: [
-      'Everything in Growth Enterprise',
-      'App Dev Suite (Tailored iOS & Android native apps)',
-      'Custom database schema & system architecture integrations',
-      'High-performance Meta Ads optimization engines',
-      'Dedicated Slack operational hotline support',
-      'Weekly strategy and metrics analysis reviews',
+      'All major advertising platforms management',
+      'Social Media Management (SMM) integration',
+      'Weekly strategy calls & metrics alignment reviews',
+      'Proprietary custom Looker Studio dashboards',
+      'Cross-client benchmark data & CPL indexing',
+      'Dedicated account manager for daily coordination',
     ],
     isPopular: false,
     color: 'from-orange-500/20 to-amber-500/20 dark:from-orange-500/10 dark:to-amber-500/10',
     accentColor: 'bg-gradient-to-r from-orange-500 to-amber-500',
     glowColor: 'rgba(249, 115, 22, 0.15)',
     ctaLabel: 'Contact Scale Advisory',
-    href: '/signup?plan=pro',
+    href: '/signup?plan=scale',
   },
 ]
 
 const FAQS = [
   {
-    question: 'How does the WhatsApp API setup work?',
-    answer: 'We deploy the Conversational Core chatbot using the official Meta Cloud API. If you have an existing phone number, we will assist you in verifying it. The setup is fully secure and handled by our technical onboarding team during your first week.',
+    question: 'Can we start with a pilot retainer?',
+    answer: 'Yes! We recommend starting with a 30-day paid pilot retainer (minimum INR 10-15K) to test the workflow, validate the niche, and prove the value with low risk to the client.',
   },
   {
-    question: 'Are there any hidden hosting or setup fees?',
-    answer: 'None. All Next.js website hosting, SSL certificates, and baseline serverless function calls are included in your subscription. Custom domain registration is billed separately if you do not already own a domain.',
+    question: 'How does the Looker Studio setup save time?',
+    answer: 'We deploy standard monthly reporting templates connected directly to Google Ads and Meta Ads. This saves 5+ hours per client per month by automating data visualization and client reviews.',
   },
   {
-    question: 'Can I change my subscription or cancel anytime?',
-    answer: 'Yes, you can upgrade, downgrade, or cancel your plan at any time through your customer billing dashboard. If you cancel, your access will remain active until the end of your current billing period.',
+    question: 'When should I hire my first media buyer?',
+    answer: 'We advise hiring your first part-time or freelance media buyer once you reach 6+ active clients. Avoid full-time hires early on to maintain high net profit margins and protect your cash runway.',
   },
   {
-    question: 'What kind of support is included?',
-    answer: 'Basic plans receive email support with a 24-hour SLA. Growth plans include a dedicated consultant with priority routing. Scale plans include a dedicated Slack workspace with direct developer support.',
+    question: 'What is the cash reserve recommendation?',
+    answer: 'Build a cash reserve equal to 3 months of business burn rate (team, tools, and business operations) to handle churn and establish a solid moat before aggressively scaling.',
   },
 ]
 
@@ -168,7 +166,7 @@ export default function PricingPage() {
           Transparent pricing. Engineered for scale.
         </h1>
         <p className="text-sm md:text-base text-sand-textSecondary max-w-xl mx-auto mt-6 leading-relaxed">
-          Select the optimal plan to deploy autonomous conversational nodes, custom SEO architecture, and automated lead generation frameworks.
+          Select the optimal retainer plan to scale your agency's operations, infrastructure, and delivery pipelines.
         </p>
 
         {/* Monthly / Yearly Billing Toggle */}
@@ -247,7 +245,7 @@ export default function PricingPage() {
                     {/* Price section */}
                     <div className="mt-6 flex items-baseline gap-1.5 border-b border-sand-border dark:border-white/5 pb-6">
                       <span className="font-poppins font-bold text-4xl md:text-5xl text-sand-purple dark:text-white tracking-tighter">
-                        ${currentPrice}
+                        {currentPrice}
                       </span>
                       <span className="text-sand-textSecondary text-xs md:text-sm">
                         /mo

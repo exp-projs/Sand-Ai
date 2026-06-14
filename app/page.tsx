@@ -13,47 +13,63 @@ import { useEffect } from 'react'
 
 const ALL_PORTFOLIO_ITEMS = [
   {
-    title: 'Performance Ads',
-    category: 'Paid Advertising',
-    image: '/icons/icon-meta-ads.jpg',
-    href: '/meta-ads',
-    features: [
-      'Autonomous high-volume creative copy testing',
-      'Lookalike audience targeting systems',
-      'Adaptive real-time bid optimization engines',
-    ],
-  },
-  {
-    title: 'Digital Architecture',
-    category: 'Web Development',
+    title: 'Google MCC Setup',
+    category: 'Google Ads Manager Accounts',
     image: '/icons/icon-website.png',
-    href: '/web-development',
+    href: '/google-mcc',
     features: [
-      'Premium, high-converting digital storefronts',
-      'Multi-region advanced local SEO optimization',
-      'Ultra-fast Next.js dynamic load architecture',
+      'Consolidated Billing & Invoicing across all client Google Ads accounts',
+      'Multi-user Access & Custom Permissions to control staff access levels securely',
+      'Shared Libraries for negative keywords, audiences, and conversions',
+      'Unified Dashboard for performance monitoring across all accounts at a glance',
     ],
   },
   {
-    title: 'Mobile Applications',
-    category: 'App Development',
+    title: 'Meta Business Manager',
+    category: 'Meta Ads Asset Management',
+    image: '/icons/icon-meta-ads.jpg',
+    href: '/meta-business-manager',
+    features: [
+      'Centralized asset control for Facebook pages, Instagram accounts, and ad accounts',
+      'Secure Partner & Employee access management without sharing personal credentials',
+      'Dataset & Conversion API (CAPI) pixel installation for optimal tracking',
+      'Domain verification & security center setups to prevent account lockouts',
+    ],
+  },
+  {
+    title: 'Looker Studio Dashboards',
+    category: 'Automated Custom Reporting',
+    image: '/icons/icon-website.png',
+    href: '/looker-studio',
+    features: [
+      'Direct API integrations with Google Ads, Meta Ads, and GA4',
+      'Blended channel spend and Cost-Per-Lead (CPL) dashboards',
+      'White-label sharing links for client-facing status reviews',
+      'Automated PDF snapshot delivery to stakeholders weekly or monthly',
+    ],
+  },
+  {
+    title: 'CRM Integration',
+    category: 'Lead Routing & Pipelines',
     image: '/icons/icon-app.png',
-    href: '/app-dev',
+    href: '/crm-integration',
     features: [
-      'Bespoke native iOS and Android configurations',
-      'Offline-first client data synchronization',
-      'Targeted push notifications & secure checkout',
+      'Automatic lead routing to Google Sheets and Notion databases',
+      'Visual Kanban boards and pipelines to track lead status easily',
+      'Real-time data logging to secure customer details instantly',
+      'Zero monthly CRM subscription fees for growing agencies',
     ],
   },
   {
-    title: 'Conversational Core',
-    category: 'Conversational AI',
+    title: 'Client Communication',
+    category: 'Instant Notification Systems',
     image: '/icons/icon-chatbot.png',
-    href: '/chatbot',
+    href: '/client-communication',
     features: [
-      '24/7 autonomous customer acquisition and support',
-      'Instant lead routing & catalog synchronization',
-      'Advanced multilingual dialog processing',
+      'Instant Slack notification alerts on new lead signup submissions',
+      'Automatic WhatsApp confirmation messages sent directly to leads',
+      'Dynamic routing logic based on service selection or region',
+      'Sub-minute callback alerts to boost sales conversion rates',
     ],
   },
 ]
@@ -87,17 +103,18 @@ export default function Home() {
         <div className="ambient-blob blob-orange w-[600px] h-[600px] top-[88%] right-[-150px]" />
 
         {/* Giant Floating Parallax Outline guide words */}
-        <div className="parallax-bg-word outline-text text-[14vw] top-[14%] opacity-100 select-none z-0">INTELLIGENCE</div>
-        <div className="parallax-bg-word outline-text text-[14vw] top-[38%] opacity-100 select-none z-0">AUTOMATION</div>
-        <div className="parallax-bg-word outline-text text-[14vw] top-[62%] opacity-100 select-none z-0">EXPANSION</div>
-        <div className="parallax-bg-word outline-text text-[14vw] top-[84%] opacity-100 select-none z-0">EVOLUTION</div>
+        <div className="parallax-bg-word outline-text text-[14vw] top-[15%] id-target opacity-100 select-none z-0">SERVICES</div>
+        <div className="parallax-bg-word outline-text text-[14vw] top-[32%] id-target opacity-100 select-none z-0">MANAGEMENT</div>
+        <div className="parallax-bg-word outline-text text-[14vw] top-[49%] id-target opacity-100 select-none z-0">REPORTING</div>
+        <div className="parallax-bg-word outline-text text-[14vw] top-[66%] id-target opacity-100 select-none z-0">AUTOMATION</div>
+        <div className="parallax-bg-word outline-text text-[14vw] top-[83%] id-target opacity-100 select-none z-0">ALERTS</div>
 
         <ExoHero />
 
         <InteractiveNetwork />
 
         {/* Consolidated Staggered 2-Column Grid */}
-        <PortfolioGrid items={ALL_PORTFOLIO_ITEMS} startIndex={0} />
+        <PortfolioGrid items={ALL_PORTFOLIO_ITEMS} startIndex={0} id="services" />
 
         <KineticMarquee />
       </main>

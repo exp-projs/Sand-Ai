@@ -10,7 +10,7 @@ export default function FooterSection() {
             <img 
               src="/logo.png" 
               alt="Sand AI Logo" 
-              className="w-10 h-10 object-contain invert"
+              className="w-10 h-10 object-contain"
             />
             <span className="font-poppins font-bold text-2xl tracking-tight">
               Sand AI
@@ -28,15 +28,16 @@ export default function FooterSection() {
           </div>
         </div>
 
-        {/* Products Column */}
+        {/* Services Column */}
         <div>
-          <h4 className="font-bold text-lg mb-8">Products</h4>
+          <h4 className="font-bold text-lg mb-8">Services</h4>
           <ul className="space-y-4">
             {[
-              { label: 'Meta Ads', href: '/meta-ads' },
-              { label: 'Web Development', href: '/web-development' },
-              { label: 'App Dev', href: '/app-dev' },
-              { label: 'Conversational AI', href: '/chatbot' }
+              { label: 'Google MCC Setup', href: '/google-mcc' },
+              { label: 'Meta Business Manager', href: '/meta-business-manager' },
+              { label: 'Looker Studio Dashboards', href: '/looker-studio' },
+              { label: 'CRM Integration', href: '/crm-integration' },
+              { label: 'Client Communication', href: '/client-communication' }
             ].map(link => (
               <li key={link.label}>
                 <Link href={link.href} className="text-sm text-sand-textSecondary hover:text-sand-orange transition-colors">

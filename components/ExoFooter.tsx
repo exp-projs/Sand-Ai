@@ -29,8 +29,6 @@ export default function ExoFooter() {
 
   const navLinks = [
     { label: 'Home', href: '/' },
-    { label: 'Services', href: '#services' },
-    { label: 'Case Studies', href: '#case-studies' },
     { label: 'About Us', href: '#about' },
     { label: 'Pricing', href: '/pricing' },
   ]
@@ -104,7 +102,7 @@ export default function ExoFooter() {
             <img
               src="/logo.png"
               alt="Sand AI Logo"
-              className="w-8 h-8 object-contain invert opacity-60"
+              className="w-8 h-8 object-contain opacity-80"
               width={32}
               height={32}
               loading="lazy"

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
@@ -11,7 +11,18 @@ export default function SignupPage() {
   const [fullName, setFullName] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [redirectPath, setRedirectPath] = useState('/')
   const router = useRouter()
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      const r = params.get('redirect')
+      if (r) {
+        setRedirectPath(r)
+      }
+    }
+  }, [])
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -31,10 +42,8 @@ export default function SignupPage() {
       if (authError) throw authError
       
       console.log('Signup success:', data)
-      // Redirect to login or home depending on whether email confirmation is required
-      // For now, let's go to login to be safe, or home if session is immediate
       if (data.session) {
-        router.push('/')
+        router.push(redirectPath)
         router.refresh()
       } else {
         setError('Please check your email to confirm your account.')
@@ -51,7 +60,7 @@ export default function SignupPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`
+          redirectTo: `${window.location.origin}/auth/callback?redirect=${encodeURIComponent(redirectPath)}`
         }
       })
       if (error) throw error

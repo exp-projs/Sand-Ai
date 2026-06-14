@@ -245,7 +245,6 @@ export default function ExoHero() {
             ))}
           </h1>
 
-          {/* Subline */}
           <p className="hero-subline text-white/70 max-w-[520px] leading-relaxed opacity-0 text-sm md:text-base font-normal">
             Deploying conversational intelligence, custom digital environments, and autonomous paid acquisition models—tailored for Tier-2 brands, retail commerce, and modern medical clinics.
           </p>

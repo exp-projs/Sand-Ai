@@ -17,6 +17,7 @@ interface PortfolioItem {
 interface PortfolioGridProps {
   items: PortfolioItem[]
   startIndex?: number
+  id?: string
 }
 
 // Unique gradients from site palette (fallback / secondary layers)
@@ -37,7 +38,7 @@ const CARD_EDITORIAL_IMAGES = [
 ]
 
 
-export default function PortfolioGrid({ items, startIndex = 0 }: PortfolioGridProps) {
+export default function PortfolioGrid({ items, startIndex = 0, id }: PortfolioGridProps) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -165,7 +166,8 @@ export default function PortfolioGrid({ items, startIndex = 0 }: PortfolioGridPr
       <Link
         key={item.title}
         href={item.href}
-        className="portfolio-card block w-full skew-element group relative"
+        id={item.href.startsWith('#') ? item.href.substring(1) : undefined}
+        className="portfolio-card block w-full skew-element group relative scroll-mt-24"
         style={{
           marginBottom: 'clamp(2rem, 5vw, 4rem)',
         }}
@@ -277,7 +279,7 @@ export default function PortfolioGrid({ items, startIndex = 0 }: PortfolioGridPr
   }
 
   return (
-    <div ref={containerRef} className="w-full max-w-7xl mx-auto px-6 relative z-10">
+    <div id={id} ref={containerRef} className="w-full max-w-7xl mx-auto px-6 relative z-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
         {/* Left Column (Static Base Column) */}
         <div className="left-column flex flex-col gap-10 md:gap-16">
