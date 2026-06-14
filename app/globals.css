@@ -3,29 +3,29 @@
 @tailwind utilities;
 
 :root {
-  --sand-purple: #6B8A7A; /* Sage Green */
-  --sand-deep-purple: #46685B; /* Darker Sage */
-  --sand-orange: #D4A373; /* Terracotta/Sand */
-  --sand-soft-orange: #E6CBB8;
+  --sand-purple: #6461FF;
+  --sand-deep-purple: #44319E;
+  --sand-orange: #FF8A00;
+  --sand-soft-orange: #FFD082;
   --sand-bg: #FCFBF9; /* Warm breathable cream */
-  --sand-card-purple: #F3F6F5; /* Very soft greenish grey */
-  --sand-card-orange: #FDF9F6;
-  --sand-border: #E8EBE9;
-  --sand-text-primary: #2B303A;
-  --sand-text-secondary: #7A858A;
+  --sand-card-purple: #F3EEFA;
+  --sand-card-orange: #FFF8EE;
+  --sand-border: #E8E2F5;
+  --sand-text-primary: #151B1E;
+  --sand-text-secondary: #686674;
 }
 
 .dark {
-  --sand-purple: #8FB9AA; /* Muted Mint */
-  --sand-deep-purple: #6A8E81;
-  --sand-orange: #E6BCA0;
-  --sand-soft-orange: #F0D5C4;
-  --sand-bg: #181A1B; /* Peaceful dark slate */
-  --sand-card-purple: #1D2120;
-  --sand-card-orange: #201D1B;
-  --sand-border: #2A2E2C;
-  --sand-text-primary: #EAEAEA;
-  --sand-text-secondary: #9FA6A2;
+  --sand-purple: #7B79FF; /* Slightly brighter for dark mode contrast */
+  --sand-deep-purple: #5642C9;
+  --sand-orange: #FF9B26;
+  --sand-soft-orange: #FFDA99;
+  --sand-bg: #0C0A13; /* Elegant, heavily pigmented deep space purple-black */
+  --sand-card-purple: #161324;
+  --sand-card-orange: #1A1111;
+  --sand-border: #2A2542;
+  --sand-text-primary: #F4F0F9;
+  --sand-text-secondary: #A1A0AB;
 }
 
 /* ─── Base ─────────────────────────────────────────────────── */
@@ -451,12 +451,12 @@ body {
 }
 
 .blob-orange {
-  background: radial-gradient(circle, rgba(212,163,115,0.4) 0%, rgba(212,163,115,0) 70%);
+  background: radial-gradient(circle, rgba(255,138,0,0.45) 0%, rgba(255,138,0,0) 70%);
   animation: float-blob-orange 60s infinite alternate ease-in-out;
 }
 
 .blob-purple {
-  background: radial-gradient(circle, rgba(107,138,122,0.4) 0%, rgba(107,138,122,0) 70%);
+  background: radial-gradient(circle, rgba(100,97,255,0.45) 0%, rgba(100,97,255,0) 70%);
   animation: float-blob-purple 75s infinite alternate ease-in-out;
 }
 
