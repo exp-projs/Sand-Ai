@@ -185,6 +185,21 @@ export default function ServiceIntakeForm({
     setSubmitting(true)
     setErrorMsg('')
 
+    // Form input validation (type checks)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      setErrorMsg('Please enter a valid email address.')
+      setSubmitting(false)
+      return
+    }
+
+    const phoneDigits = whatsapp.replace(/\D/g, '')
+    if (phoneDigits.length < 10) {
+      setErrorMsg('Please enter a valid WhatsApp number (at least 10 digits).')
+      setSubmitting(false)
+      return
+    }
+
     const detailsObj: Record<string, string> = {}
     if (serviceType === 'google-mcc') {
       detailsObj['Number of Ad Accounts'] = param1
@@ -335,8 +350,8 @@ export default function ServiceIntakeForm({
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-extrabold text-xl text-sand-textPrimary">Request Setup</h3>
-              <p className="text-xs text-sand-textSecondary">Fill details to initialize database sync & n8n notifications</p>
+              <h3 className="font-extrabold text-xl text-sand-textPrimary">Initialize Integration</h3>
+              <p className="text-xs text-sand-textSecondary">Securely connect your data sources to the Sand AI ecosystem.</p>
             </div>
           </div>
 
