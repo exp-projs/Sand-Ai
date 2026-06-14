@@ -1,12 +1,12 @@
 'use client'
 
 import React from 'react'
-import { Instagram, Search, Globe, Users } from 'lucide-react'
+import { Megaphone, Search, Globe, Users } from 'lucide-react'
 
 const PILLARS = [
   {
     title: 'Meta Ads',
-    icon: <Instagram className="w-6 h-6 text-sand-purple" />,
+    icon: <Megaphone className="w-6 h-6 text-sand-purple" />,
     description: 'Hyper-targeted campaigns across Facebook and Instagram. We leverage advanced CAPI integrations and predictive audience modeling to find your ideal customers and scale your ROAS predictably.',
     color: 'purple',
   },
