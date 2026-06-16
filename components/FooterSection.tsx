@@ -53,10 +53,10 @@ export default function FooterSection() {
           <h4 className="font-bold text-lg mb-8">Company</h4>
           <ul className="space-y-4">
             {[
-              { label: 'About Us', href: '#about' },
-              { label: 'Pricing', href: '/pricing' },
-              { label: 'Case Studies', href: '#case-studies' },
-              { label: 'Blog', href: '#blog' }
+              { label: 'About Us', href: '/about' },
+              { label: 'Notes', href: '/notes' },
+              { label: 'The Diagnostic', href: '/diagnostic' },
+              { label: 'Pricing', href: '/pricing' }
             ].map(link => (
               <li key={link.label}>
                 <Link href={link.href} className="text-sm text-sand-textSecondary hover:text-sand-orange transition-colors">

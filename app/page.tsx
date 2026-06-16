@@ -3,7 +3,9 @@
 import ExoHero from '@/components/ExoHero'
 import ServicePillars from '@/components/ServicePillars'
 import InteractiveNetwork from '@/components/InteractiveNetwork'
+import GrowthPatterns from '@/components/GrowthPatterns'
 import PortfolioGrid from '@/components/PortfolioGrid'
+import GrowthLeakCalculator from '@/components/GrowthLeakCalculator'
 import KineticMarquee from '@/components/KineticMarquee'
 import ExoFooter from '@/components/ExoFooter'
 import BokehBackdrop from '@/components/BokehBackdrop'
@@ -104,11 +106,12 @@ export default function Home() {
         <div className="ambient-blob blob-orange w-[600px] h-[600px] top-[88%] right-[-150px]" />
 
         {/* Giant Floating Parallax Outline guide words */}
-        <div className="parallax-bg-word outline-text text-[14vw] top-[15%] id-target opacity-100 select-none z-0">SERVICES</div>
-        <div className="parallax-bg-word outline-text text-[14vw] top-[32%] id-target opacity-100 select-none z-0">MANAGEMENT</div>
-        <div className="parallax-bg-word outline-text text-[14vw] top-[49%] id-target opacity-100 select-none z-0">REPORTING</div>
-        <div className="parallax-bg-word outline-text text-[14vw] top-[66%] id-target opacity-100 select-none z-0">AUTOMATION</div>
-        <div className="parallax-bg-word outline-text text-[14vw] top-[83%] id-target opacity-100 select-none z-0">ALERTS</div>
+        <div className="parallax-bg-word outline-text text-[14vw] top-[12%] id-target opacity-100 select-none z-0">SERVICES</div>
+        <div className="parallax-bg-word outline-text text-[14vw] top-[26%] id-target opacity-100 select-none z-0">PATTERNS</div>
+        <div className="parallax-bg-word outline-text text-[14vw] top-[40%] id-target opacity-100 select-none z-0">MANAGEMENT</div>
+        <div className="parallax-bg-word outline-text text-[14vw] top-[54%] id-target opacity-100 select-none z-0">DIAGNOSTIC</div>
+        <div className="parallax-bg-word outline-text text-[14vw] top-[68%] id-target opacity-100 select-none z-0">AUTOMATION</div>
+        <div className="parallax-bg-word outline-text text-[14vw] top-[82%] id-target opacity-100 select-none z-0">ALERTS</div>
 
         <ExoHero />
 
@@ -116,8 +119,12 @@ export default function Home() {
 
         <InteractiveNetwork />
 
+        <GrowthPatterns />
+
         {/* Consolidated Staggered 2-Column Grid */}
         <PortfolioGrid items={ALL_PORTFOLIO_ITEMS} startIndex={0} id="services" />
+
+        <GrowthLeakCalculator />
 
         <KineticMarquee />
       </main>

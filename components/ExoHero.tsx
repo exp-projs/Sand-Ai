@@ -246,7 +246,7 @@ export default function ExoHero() {
           </h1>
 
           <p className="hero-subline text-white/70 max-w-[520px] leading-relaxed opacity-0 text-sm md:text-base font-normal">
-            Deploying conversational intelligence, custom digital environments, and autonomous paid acquisition models—tailored for Tier-2 brands, retail commerce, and modern medical clinics.
+            Every rupee you spend on ads is either working or wasting. Growth problem that appears during paid campaigns, SEO, website or analytics . We identify what’s actually causing them and then decide what to improve. We wire together paid campaigns, automated follow-ups, and live performance dashboards so nothing leaks and nothing gets missed. You grow. We make sure of it.
           </p>
         </div>
       </div>

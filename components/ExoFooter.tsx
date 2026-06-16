@@ -29,7 +29,9 @@ export default function ExoFooter() {
 
   const navLinks = [
     { label: 'Home', href: '/' },
-    { label: 'About Us', href: '#about' },
+    { label: 'About Us', href: '/about' },
+    { label: 'Notes', href: '/notes' },
+    { label: 'The Diagnostic', href: '/diagnostic' },
     { label: 'Pricing', href: '/pricing' },
   ]
 
