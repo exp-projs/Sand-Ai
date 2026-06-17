@@ -6,7 +6,7 @@ import FooterSection from "@/components/FooterSection";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import IntroOverlay from "@/components/IntroOverlay";
 import CustomCursor from "@/components/CustomCursor";
-import LenisProvider from "@/components/LenisProvider";
+import ScrollProvider from "@/components/ScrollProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -59,11 +59,11 @@ export default function RootLayout({
             </div>
           </div>
 
-          <LenisProvider>
+          <ScrollProvider>
             <Navbar />
             {children}
             <FooterSection />
-          </LenisProvider>
+          </ScrollProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -20,7 +20,7 @@
   --sand-deep-purple: #5642C9;
   --sand-orange: #FF9B26;
   --sand-soft-orange: #FFDA99;
-  --sand-bg: #0C0A13; /* Elegant, heavily pigmented deep space purple-black */
+  --sand-bg: #060719; /* Elegant, heavily pigmented deep space purple-black */
   --sand-card-purple: #161324;
   --sand-card-orange: #1A1111;
   --sand-border: #2A2542;
@@ -30,9 +30,6 @@
 
 /* ─── Base ─────────────────────────────────────────────────── */
 
-html {
-  /* Lenis handles smooth scroll — do NOT set scroll-behavior: smooth */
-}
 
 body {
   background-color: var(--sand-bg);
@@ -71,7 +68,7 @@ body {
 }
 
 .dark .intro-overlay {
-  background-color: #060510;
+  background-color: var(--sand-bg);
 }
 
 .intro-overlay.intro-exit {
@@ -219,7 +216,7 @@ body {
 
 .exo-headline {
   font-family: var(--font-poppins), sans-serif;
-  font-size: clamp(3.6rem, 9.6vw, 8.6rem);
+  font-size: clamp(3rem, 7.5vw, 6.4rem);
   font-weight: 600; /* Calmer, slightly less heavy */
   line-height: 0.95;
   letter-spacing: -0.02em;
@@ -240,6 +237,7 @@ body {
   background: linear-gradient(
     to bottom,
     transparent 45%,
+    var(--sand-deep-purple) 90%,
     var(--sand-deep-purple) 100%
   );
 }
@@ -248,7 +246,8 @@ body {
   background: linear-gradient(
     to bottom,
     transparent 45%,
-    #060510 100%
+    var(--sand-bg) 90%,
+    var(--sand-bg) 100%
   );
 }
 

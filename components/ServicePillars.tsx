@@ -6,9 +6,9 @@ import { Megaphone, Search, Globe, Users } from 'lucide-react'
 const PILLARS = [
   {
     title: 'Meta Ads',
-    icon: <Megaphone className="w-6 h-6 text-sand-purple" />,
+    icon: <Megaphone className="w-6 h-6 text-sand-orange" />,
     description: 'Hyper-targeted campaigns across Facebook and Instagram. We leverage advanced CAPI integrations and predictive audience modeling to find your ideal customers and scale your ROAS predictably.',
-    color: 'purple',
+    color: 'orange',
   },
   {
     title: 'Google Ads',
@@ -18,15 +18,15 @@ const PILLARS = [
   },
   {
     title: 'Google Free Organic (GFO)',
-    icon: <Globe className="w-6 h-6 text-green-500" />,
+    icon: <Globe className="w-6 h-6 text-sand-orange" />,
     description: 'Sustainable, long-term growth without ad spend. We optimize your local SEO and Google Business Profile to ensure your brand ranks organically, capturing free, high-quality traffic 24/7.',
-    color: 'green',
+    color: 'orange',
   },
   {
     title: 'Social Media Mgmt',
-    icon: <Users className="w-6 h-6 text-blue-500" />,
+    icon: <Users className="w-6 h-6 text-sand-orange" />,
     description: 'Building authentic community and brand trust. We craft compelling, aesthetic content that resonates with your target audience, turning casual followers into loyal, paying brand advocates.',
-    color: 'blue',
+    color: 'orange',
   },
 ]
 
