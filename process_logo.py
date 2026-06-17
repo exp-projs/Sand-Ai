@@ -1,7 +1,7 @@
 from PIL import Image, ImageFilter
 import numpy as np
 
-def process_logo(input_path, output_path, orange_rgb=(255, 90, 0), lavender_rgb=(185, 115, 255)):
+def process_logo(input_path, output_path, orange_rgb=(255, 90, 0), lavender_rgb=(123, 120, 255)):
     img = Image.open(input_path).convert('RGBA')
     
     # Smooth the image slightly to remove texture/noise for a clean modern look
