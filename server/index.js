@@ -10,8 +10,31 @@ const app = express();
 const PORT = parseInt(process.env.PORT, 10) || 5000;
 
 // Supabase Setup
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseUrl = process.env.SUPABASE_URL || '';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+
+// Debugging checks to prevent mismatched keys
+try {
+  const urlMatch = supabaseUrl.match(/https:\/\/([^.]+)\.supabase\.co/i);
+  const urlRef = urlMatch ? urlMatch[1] : null;
+  
+  const keyParts = supabaseServiceKey.split('.');
+  if (keyParts.length === 3) {
+    const payload = JSON.parse(Buffer.from(keyParts[1], 'base64').toString());
+    const keyRef = payload.ref;
+    
+    console.log(`[Supabase Check] Target URL: ${supabaseUrl}`);
+    console.log(`[Supabase Check] Key Project Ref: ${keyRef}`);
+    
+    if (urlRef && keyRef && urlRef !== keyRef) {
+      console.error(`\n⚠️  WARNING: Supabase URL project reference ("${urlRef}") does not match the Service Role Key project reference ("${keyRef}")!`);
+      console.error(`This mismatch will cause all API and authentication calls to fail with 401/403 errors.\n`);
+    }
+  }
+} catch (e) {
+  // Ignored
+}
+
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 const allowedOrigins = [
@@ -365,6 +388,6 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok', message: 'Backend is running' });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
