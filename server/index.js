@@ -14,8 +14,33 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://sand-ai-mocha.vercel.app'
+];
+
+if (process.env.FRONTEND_URL) {
+  process.env.FRONTEND_URL.split(',').forEach(origin => {
+    const trimmed = origin.trim();
+    if (trimmed) allowedOrigins.push(trimmed);
+  });
+}
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    
+    const isAllowed = allowedOrigins.some(allowed => {
+      if (allowed === '*') return true;
+      return allowed.toLowerCase() === origin.toLowerCase();
+    }) || origin.includes('localhost:') || origin.endsWith('.vercel.app');
+    
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error(`Origin ${origin} not allowed by CORS`));
+    }
+  },
   credentials: true
 }));
 app.use(express.json());
