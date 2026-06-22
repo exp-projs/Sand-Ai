@@ -141,7 +141,10 @@ export default function DiagnosticPage() {
         targetUrl = 'https://' + targetUrl
       }
 
-      const backendHost = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000/api'
+      const backendHost = process.env.NEXT_PUBLIC_BACKEND_URL || 
+        (typeof window !== 'undefined' && window.location.hostname === 'localhost' 
+          ? 'http://localhost:5000/api' 
+          : '/api')
       const response = await fetch(`${backendHost}/analyze-website`, {
         method: 'POST',
         headers: {
