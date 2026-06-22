@@ -68,6 +68,8 @@ export default function DiagnosticPage() {
   const [scanStepIndex, setScanStepIndex] = useState(0)
   const [report, setReport] = useState<AuditReport | null>(null)
   const [scanError, setScanError] = useState('')
+  const [scanCount, setScanCount] = useState<number>(0)
+  const [limitReached, setLimitReached] = useState<boolean>(false)
   
   // Auth Form States
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login')
@@ -82,6 +84,43 @@ export default function DiagnosticPage() {
 
   // Cal.com scheduler and form scroll references
   const schedulerRef = useRef<HTMLDivElement>(null)
+
+  // Fetch scan usage count
+  const fetchScanUsage = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) return
+
+      const backendHost = process.env.NEXT_PUBLIC_BACKEND_URL || 
+        (typeof window !== 'undefined' && window.location.hostname === 'localhost' 
+          ? 'http://localhost:5000/api' 
+          : '/api')
+
+      const res = await fetch(`${backendHost}/scan-usage`, {
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`
+        }
+      })
+      if (res.ok) {
+        const data = await res.json()
+        setScanCount(data.count || 0)
+        if ((data.count || 0) >= 3) {
+          setLimitReached(true)
+        }
+      }
+    } catch (err) {
+      console.error('Error fetching scan usage:', err)
+    }
+  }
+
+  useEffect(() => {
+    if (user) {
+      fetchScanUsage()
+    } else {
+      setScanCount(0)
+      setLimitReached(false)
+    }
+  }, [user])
 
   useEffect(() => {
     // Get initial session
@@ -157,10 +196,20 @@ export default function DiagnosticPage() {
       const responseData = await response.json()
 
       if (!response.ok) {
+        if (response.status === 403 && responseData.limitReached) {
+          setLimitReached(true)
+          setScanCount(3)
+        }
         throw new Error(responseData.error || 'Diagnostic audit failed.')
       }
 
       setReport(responseData)
+      if (responseData.scanCount !== undefined) {
+        setScanCount(responseData.scanCount)
+        if (responseData.scanCount >= 3) {
+          setLimitReached(true)
+        }
+      }
     } catch (err: any) {
       setScanError(err.message || 'Something went wrong during analysis.')
     } finally {
@@ -603,54 +652,87 @@ export default function DiagnosticPage() {
                   
                   {/* Scanner Input Card */}
                   <div className="bg-sand-cardPurple/70 dark:bg-slate-900 border border-sand-border p-8 rounded-3xl shadow-xl space-y-6">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Globe className="w-5 h-5 text-sand-purple" />
-                        <span className="text-xs font-bold text-sand-textPrimary uppercase tracking-wider">Verify Website Status</span>
-                      </div>
-                      <span className="text-[10px] text-sand-purple bg-sand-purple/10 px-3 py-1 rounded-full font-bold uppercase tracking-wider">
-                        Active Account
-                      </span>
-                    </div>
-
-                    <form onSubmit={handleRunScan} className="space-y-4">
-                      <div className="flex flex-col md:flex-row gap-3">
-                        <div className="relative flex-grow">
-                          <input
-                            type="text"
-                            required
-                            disabled={isScanning}
-                            value={url}
-                            onChange={(e) => setUrl(e.target.value)}
-                            className="w-full pl-12 pr-5 py-4 rounded-2xl bg-sand-bg dark:bg-white/5 border border-sand-border focus:ring-2 focus:ring-sand-purple/20 focus:border-sand-purple outline-none transition-all font-medium text-xs md:text-sm text-sand-textPrimary placeholder:text-sand-textSecondary/60"
-                            placeholder="e.g. mybusiness.com or https://example.com"
-                          />
-                          <Globe className="w-4 h-4 text-sand-textSecondary absolute left-4.5 top-4.5" />
+                    {limitReached || scanCount >= 3 ? (
+                      <div className="text-center py-6 space-y-6 animate-fadeIn">
+                        <div className="inline-flex p-3 rounded-full bg-sand-orange/10 text-sand-orange">
+                          <AlertTriangle className="w-8 h-8" />
                         </div>
-                        <button
-                          type="submit"
-                          disabled={isScanning || !url}
-                          className="rounded-2xl bg-sand-orange px-8 py-4 text-xs md:text-sm font-bold text-white shadow-lg shadow-sand-orange/20 hover:bg-[#E67A00] transition-colors flex items-center justify-center gap-2 group disabled:opacity-50"
-                        >
-                          {isScanning ? (
-                            <>
-                              <Loader2 className="w-4 h-4 animate-spin" />
-                              Scanning...
-                            </>
-                          ) : (
-                            <>
-                              Analyze Website
-                              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                            </>
-                          )}
-                        </button>
+                        <div className="space-y-2">
+                          <h3 className="font-poppins text-xl md:text-2xl font-black text-sand-textPrimary tracking-tight">
+                            Free Diagnostic Limit Reached
+                          </h3>
+                          <p className="text-xs md:text-sm text-sand-textSecondary max-w-md mx-auto leading-relaxed font-light">
+                            You have used your 3 free website scans ({scanCount}/3). Schedule a 1:1 Live Deep-Dive screen share call with our engineering and growth team to perform more scans and review your marketing architecture.
+                          </p>
+                        </div>
+                        <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+                          <button
+                            onClick={() => {
+                              setActiveTab('booking')
+                              schedulerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                            }}
+                            className="bg-sand-purple text-white px-8 py-3.5 rounded-xl text-xs md:text-sm font-bold shadow-lg shadow-sand-purple/20 hover:bg-sand-purple/95 transition-colors flex items-center justify-center gap-2 group cursor-pointer"
+                          >
+                            <Calendar className="w-4 h-4" />
+                            Book 1:1 Diagnostic Call
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                          </button>
+                        </div>
                       </div>
-                    </form>
+                    ) : (
+                      <>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <Globe className="w-5 h-5 text-sand-purple" />
+                            <span className="text-xs font-bold text-sand-textPrimary uppercase tracking-wider">
+                              Verify Website Status ({scanCount}/3 scans used)
+                            </span>
+                          </div>
+                          <span className="text-[10px] text-sand-purple bg-sand-purple/10 px-3 py-1 rounded-full font-bold uppercase tracking-wider">
+                            Active Account
+                          </span>
+                        </div>
 
-                    {scanError && (
-                      <div className="bg-red-50 dark:bg-red-950/30 text-red-500 dark:text-red-400 p-4 rounded-xl text-xs border border-red-100 dark:border-red-900/50 italic">
-                        Error: {scanError}
-                      </div>
+                        <form onSubmit={handleRunScan} className="space-y-4">
+                          <div className="flex flex-col md:flex-row gap-3">
+                            <div className="relative flex-grow">
+                              <input
+                                type="text"
+                                required
+                                disabled={isScanning}
+                                value={url}
+                                onChange={(e) => setUrl(e.target.value)}
+                                className="w-full pl-12 pr-5 py-4 rounded-2xl bg-sand-bg dark:bg-white/5 border border-sand-border focus:ring-2 focus:ring-sand-purple/20 focus:border-sand-purple outline-none transition-all font-medium text-xs md:text-sm text-sand-textPrimary placeholder:text-sand-textSecondary/60"
+                                placeholder="e.g. mybusiness.com or https://example.com"
+                              />
+                              <Globe className="w-4 h-4 text-sand-textSecondary absolute left-4.5 top-4.5" />
+                            </div>
+                            <button
+                              type="submit"
+                              disabled={isScanning || !url}
+                              className="rounded-2xl bg-sand-orange px-8 py-4 text-xs md:text-sm font-bold text-white shadow-lg shadow-sand-orange/20 hover:bg-[#E67A00] transition-colors flex items-center justify-center gap-2 group disabled:opacity-50"
+                            >
+                              {isScanning ? (
+                                <>
+                                  <Loader2 className="w-4 h-4 animate-spin" />
+                                  Scanning...
+                                </>
+                              ) : (
+                                <>
+                                  Analyze Website
+                                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                </>
+                              )}
+                            </button>
+                          </div>
+                        </form>
+
+                        {scanError && (
+                          <div className="bg-red-50 dark:bg-red-950/30 text-red-500 dark:text-red-400 p-4 rounded-xl text-xs border border-red-100 dark:border-red-900/50 italic">
+                            Error: {scanError}
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
 

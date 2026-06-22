@@ -246,6 +246,27 @@ function parseHTML(html) {
   return result;
 }
 
+// Scan Usage Check Endpoint
+app.get('/api/scan-usage', verifyUser, async (req, res) => {
+  try {
+    const { count, error } = await supabase
+      .from('website_scans')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', req.user.id);
+
+    if (error) {
+      if (error.code === 'PGRST116' || error.message.includes('relation "website_scans" does not exist')) {
+        return res.status(200).json({ count: 0 });
+      }
+      throw error;
+    }
+    return res.status(200).json({ count: count || 0 });
+  } catch (err) {
+    console.error('Failed to retrieve scan usage:', err);
+    return res.status(200).json({ count: 0 });
+  }
+});
+
 // AI Website Analysis Endpoint
 app.post('/api/analyze-website', verifyUser, async (req, res) => {
   let { url } = req.body;
@@ -256,6 +277,28 @@ app.post('/api/analyze-website', verifyUser, async (req, res) => {
   // Prepend protocol if missing
   if (!/^https?:\/\//i.test(url)) {
     url = 'https://' + url;
+  }
+
+  let currentCount = 0;
+  try {
+    const { count, error: countError } = await supabase
+      .from('website_scans')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', req.user.id);
+
+    if (countError) {
+      console.warn('Database select error (likely table website_scans not created yet):', countError);
+    } else {
+      currentCount = count || 0;
+      if (currentCount >= 3) {
+        return res.status(403).json({
+          error: 'Free scan limit reached (3/3 scans used). Please schedule a 1:1 Live Deep-Dive call with our engineering team to review your website.',
+          limitReached: true
+        });
+      }
+    }
+  } catch (err) {
+    console.error('Failed to verify scan limits:', err);
   }
 
   try {
@@ -373,6 +416,20 @@ Guidelines for the response:
 
     try {
       const auditReport = JSON.parse(text);
+
+      // Log successful scan to database
+      try {
+        await supabase
+          .from('website_scans')
+          .insert({
+            user_id: req.user.id,
+            url: url
+          });
+      } catch (dbErr) {
+        console.error('Failed to save scan record to database:', dbErr);
+      }
+
+      auditReport.scanCount = currentCount + 1;
       return res.status(200).json(auditReport);
     } catch (parseErr) {
       console.error('Failed to parse NIM JSON. Raw text:', text);
