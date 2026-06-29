@@ -64,6 +64,7 @@ export default function OnboardingModal() {
   const [primaryGoal, setPrimaryGoal] = useState('')
   const [whatsapp, setWhatsapp] = useState('')
   const [notes, setNotes] = useState('')
+  const [agreedToDpdp, setAgreedToDpdp] = useState(false)
 
   // Auth gate states
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login')
@@ -211,6 +212,7 @@ export default function OnboardingModal() {
         setSuccess(false)
         setStep(1)
         setSubmitError('')
+        setAgreedToDpdp(false)
       }
     })
     gsap.to(backdropRef.current, { opacity: 0, duration: 0.3, ease: 'power2.in' })
@@ -310,6 +312,11 @@ export default function OnboardingModal() {
       return
     }
 
+    if (!agreedToDpdp) {
+      setSubmitError('You must agree to the Data Processing Agreement (DPA) and Consent Notices to proceed.')
+      return
+    }
+
     setSubmitting(true)
     setSubmitError('')
 
@@ -321,6 +328,7 @@ export default function OnboardingModal() {
       budget: budget,
       primary_goal: primaryGoal,
       notes: notes,
+      agreed_to_dpdp: true,
       onboarding_flow: 'general'
     }
 
@@ -721,6 +729,29 @@ export default function OnboardingModal() {
                       className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-sand-border focus:ring-2 focus:ring-sand-purple/20 focus:border-sand-purple outline-none transition-all text-xs md:text-sm text-sand-textPrimary font-semibold resize-none"
                       placeholder="Share details on key dashboard metrics, specific ad accounts, or CRM systems you want integrated."
                     />
+                  </div>
+
+                  {/* DPDP Compliance Checkbox */}
+                  <div className="flex items-start gap-3 mt-4 bg-sand-purple/5 dark:bg-white/5 p-4 rounded-2xl border border-sand-purple/10">
+                    <input
+                      id="agreedToDpdp"
+                      type="checkbox"
+                      checked={agreedToDpdp}
+                      onChange={(e) => setAgreedToDpdp(e.target.checked)}
+                      className="w-4 h-4 rounded text-sand-purple focus:ring-sand-purple/20 border-sand-border bg-slate-50 dark:bg-white/5 cursor-pointer mt-1"
+                    />
+                    <label htmlFor="agreedToDpdp" className="text-[11px] md:text-xs text-sand-textSecondary cursor-pointer select-none leading-relaxed">
+                      I agree to the{' '}
+                      <a 
+                        href="/legal/dpdp" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-sand-purple font-bold hover:underline"
+                      >
+                        Data Processing Agreement (DPA)
+                      </a>{' '}
+                      and consent to Sand AI processing my business parameters for system deployment.
+                    </label>
                   </div>
                 </div>
               )}
