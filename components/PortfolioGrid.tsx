@@ -313,12 +313,12 @@ export default function PortfolioGrid({ items, startIndex = 0, id }: PortfolioGr
                 <p className="text-white/80 text-xs max-w-xs">
                   Connect with our technical strategy team to deploy high-converting AI integrations.
                 </p>
-                <Link
-                  href="/signup"
+                <button
+                  onClick={() => window.dispatchEvent(new CustomEvent('open-onboarding'))}
                   className="mt-3 px-6 py-2.5 rounded-full bg-sand-orange hover:bg-sand-orange/90 text-white font-poppins font-bold text-xs tracking-wider shadow-lg transition-all duration-300 hover:scale-105 pointer-events-auto select-auto"
                 >
                   Book a Call
-                </Link>
+                </button>
               </div>
             </div>
           </div>

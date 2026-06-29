@@ -30,23 +30,91 @@ import { supabase } from '@/lib/supabase'
 import { User as SupabaseUser } from '@supabase/supabase-js'
 
 interface Issue {
-  category: 'seo' | 'performance' | 'tracking' | 'copywriting'
-  severity: 'critical' | 'warning' | 'optimized'
+  id: string
+  category: 'seo' | 'performance' | 'tracking' | 'copywriting' | 'brand_identity' | 'conversion' | 'security' | 'accessibility'
+  severity: 'critical' | 'warning' | 'optimized' | 'opportunity'
+  pillar: 'seo_mastery' | 'performance_engineering' | 'tracking_analytics_intelligence' | 'copywriting_value_proposition' | 'brand_identity_cohesion' | 'conversion_optimization'
   title: string
   description: string
+  business_impact: string
+  affected_elements: string[]
   recommendation: string
+  implementation_effort: string
+  estimated_impact: string
+  priority_rank: number
+}
+
+interface Strength {
+  id: string
+  category: string
+  title: string
+  description: string
+  leverage_recommendation: string
+}
+
+interface PillarScore {
+  score: number
+  weight: number
+  grade: string
 }
 
 interface AuditReport {
-  score: number
-  scores: {
-    seo: number
-    performance: number
-    tracking: number
-    copywriting: number
+  scanCount?: number
+  audit_metadata: {
+    audit_id: string
+    audited_url: string
+    audit_timestamp: string
+    audit_version: string
+    scoring_model: string
   }
-  summary: string
+  executive_summary: {
+    overall_score: number
+    grade: string
+    brand_health_index: number
+    marketing_maturity_level: string
+    revenue_at_risk_estimate: string
+    competitive_positioning: string
+    summary_paragraph: string
+  }
+  pillar_scores: {
+    seo_mastery: PillarScore
+    performance_engineering: PillarScore
+    tracking_analytics_intelligence: PillarScore
+    copywriting_value_proposition: PillarScore
+    brand_identity_cohesion: PillarScore
+    conversion_optimization: PillarScore
+  }
+  technical_inventory: {
+    detected_platforms: string[]
+    detected_tools: string[]
+    detected_integrations: string[]
+    security_posture: {
+      ssl: boolean
+      tls_version: string
+      security_headers: string[]
+      vulnerabilities: string[]
+    }
+    performance_metrics: {
+      estimated_lcp: string
+      estimated_cls: string
+      script_count: number
+      stylesheet_count: number
+      image_count: number
+      third_party_domains: string[]
+    }
+  }
   issues: Issue[]
+  strengths?: Strength[]
+  competitive_intelligence?: {
+    tech_stack_summary: string
+    market_position_signals: string
+    gap_analysis: string
+  }
+  action_plan?: {
+    quick_wins: string[]
+    strategic_initiatives: string[]
+    estimated_roi_projection: string
+  }
 }
 
 const SCAN_LOADER_STAGES = [
@@ -274,6 +342,10 @@ export default function DiagnosticPage() {
       case 'performance': return <Activity className="w-4 h-4 text-emerald-500" />
       case 'tracking': return <Code className="w-4 h-4 text-indigo-500" />
       case 'copywriting': return <LineChart className="w-4 h-4 text-amber-500" />
+      case 'brand_identity': return <Sparkles className="w-4 h-4 text-pink-500" />
+      case 'conversion': return <CheckCircle2 className="w-4 h-4 text-purple-500" />
+      case 'security': return <Shield className="w-4 h-4 text-teal-500" />
+      case 'accessibility': return <User className="w-4 h-4 text-cyan-500" />
       default: return <FileText className="w-4 h-4 text-slate-500" />
     }
   }
@@ -284,6 +356,8 @@ export default function DiagnosticPage() {
         return <span className="text-[10px] font-bold text-red-500 bg-red-500/10 dark:bg-red-500/20 px-2.5 py-1 rounded-full uppercase tracking-wider">Critical Leak</span>
       case 'warning':
         return <span className="text-[10px] font-bold text-orange-500 bg-orange-500/10 dark:bg-orange-500/20 px-2.5 py-1 rounded-full uppercase tracking-wider">Growth Warning</span>
+      case 'opportunity':
+        return <span className="text-[10px] font-bold text-blue-500 bg-blue-500/10 dark:bg-blue-500/20 px-2.5 py-1 rounded-full uppercase tracking-wider">Opportunity</span>
       case 'optimized':
       default:
         return <span className="text-[10px] font-bold text-green-500 bg-green-500/10 dark:bg-green-500/20 px-2.5 py-1 rounded-full uppercase tracking-wider">Optimized</span>
@@ -800,51 +874,71 @@ export default function DiagnosticPage() {
                                 strokeWidth="8"
                                 fill="transparent"
                                 strokeDasharray={2 * Math.PI * 54}
-                                strokeDashoffset={2 * Math.PI * 54 * (1 - report.score / 100)}
+                                strokeDashoffset={2 * Math.PI * 54 * (1 - (report.executive_summary?.overall_score ?? 0) / 100)}
                                 strokeLinecap="round"
                               />
                             </svg>
                             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                              <span className="text-3xl font-black text-sand-textPrimary font-poppins">{report.score}</span>
-                              <span className="text-[9px] uppercase font-bold text-sand-textSecondary tracking-wider">Audit Score</span>
+                              <span className="text-3xl font-black text-sand-textPrimary font-poppins">{report.executive_summary?.overall_score ?? 0}</span>
+                              <span className="text-[9px] uppercase font-bold text-sand-textSecondary tracking-wider">Overall Score</span>
                             </div>
                           </div>
                           
-                          <span className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full ${
-                            report.score < 50 
-                              ? 'text-red-500 bg-red-500/10' 
-                              : report.score < 75 
-                                ? 'text-orange-500 bg-orange-500/10' 
-                                : 'text-green-500 bg-green-500/10'
-                          }`}>
-                            {report.score < 50 ? 'Critical Attention' : report.score < 75 ? 'Needs Improvement' : 'Fully Optimized'}
+                          <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full text-sand-orange bg-sand-orange/10">
+                            Grade: {report.executive_summary?.grade ?? 'N/A'}
                           </span>
                         </div>
 
                         {/* Executive Summary */}
-                        <div className="lg:col-span-8 space-y-4">
+                        <div className="lg:col-span-8 space-y-4 text-left">
                           <span className="text-[10px] font-bold text-sand-purple uppercase tracking-widest block">Executive Analysis</span>
                           <h3 className="text-xl font-bold font-poppins text-sand-textPrimary leading-snug">
                             Detailed Conversion & Structural Audit
                           </h3>
                           <p className="text-xs md:text-sm text-sand-textSecondary font-light leading-relaxed">
-                            {report.summary}
+                            {report.executive_summary?.summary_paragraph}
                           </p>
                         </div>
                       </div>
 
-                      {/* Sub-metrics Grid */}
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      {/* Brand Health & Maturity KPI Bar */}
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
                         {[
-                          { key: 'seo', label: 'SEO Config', score: report.scores.seo, color: 'bg-sky-500' },
-                          { key: 'performance', label: 'Speed & Perf', score: report.scores.performance, color: 'bg-emerald-500' },
-                          { key: 'tracking', label: 'Pixel Tracking', score: report.scores.tracking, color: 'bg-indigo-500' },
-                          { key: 'copywriting', label: 'Copy & Conversion', score: report.scores.copywriting, color: 'bg-amber-500' }
-                        ].map((metric) => (
-                          <div key={metric.key} className="bg-sand-cardPurple/30 dark:bg-white/5 border border-sand-border rounded-2xl p-5 space-y-3">
-                            <span className="text-[10px] font-bold text-sand-textSecondary uppercase tracking-wider block">
-                              {metric.label}
+                          { label: 'Brand Health Index', value: `${report.executive_summary?.brand_health_index ?? 0}/100`, color: 'text-pink-500' },
+                          { label: 'Marketing Maturity', value: report.executive_summary?.marketing_maturity_level ?? 'N/A', color: 'text-purple-500' },
+                          { label: 'Competitive Position', value: report.executive_summary?.competitive_positioning ?? 'N/A', color: 'text-sky-500' },
+                          { label: 'Revenue At Risk', value: report.executive_summary?.revenue_at_risk_estimate ?? 'N/A', color: 'text-red-500 font-bold' }
+                        ].map((kpi, idx) => (
+                          <div key={idx} className="bg-white dark:bg-slate-900 border border-sand-border rounded-2xl p-5 space-y-1 shadow-sm">
+                            <span className="text-[9px] font-bold text-sand-textSecondary uppercase tracking-wider block">
+                              {kpi.label}
                             </span>
+                            <span className={`text-xs md:text-sm font-black font-poppins ${kpi.color}`}>
+                              {kpi.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Sub-metrics Grid (6 pillars) */}
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-left">
+                        {[
+                          { label: 'SEO Mastery', score: report.pillar_scores?.seo_mastery?.score ?? 0, grade: report.pillar_scores?.seo_mastery?.grade ?? 'N/A', color: 'bg-sky-500' },
+                          { label: 'Perf Engineering', score: report.pillar_scores?.performance_engineering?.score ?? 0, grade: report.pillar_scores?.performance_engineering?.grade ?? 'N/A', color: 'bg-emerald-500' },
+                          { label: 'Analytics Intel', score: report.pillar_scores?.tracking_analytics_intelligence?.score ?? 0, grade: report.pillar_scores?.tracking_analytics_intelligence?.grade ?? 'N/A', color: 'bg-indigo-500' },
+                          { label: 'Copy & Value Prop', score: report.pillar_scores?.copywriting_value_proposition?.score ?? 0, grade: report.pillar_scores?.copywriting_value_proposition?.grade ?? 'N/A', color: 'bg-amber-500' },
+                          { label: 'Brand Cohesion', score: report.pillar_scores?.brand_identity_cohesion?.score ?? 0, grade: report.pillar_scores?.brand_identity_cohesion?.grade ?? 'N/A', color: 'bg-pink-500' },
+                          { label: 'Conversion (CRO)', score: report.pillar_scores?.conversion_optimization?.score ?? 0, grade: report.pillar_scores?.conversion_optimization?.grade ?? 'N/A', color: 'bg-purple-500' }
+                        ].map((metric, idx) => (
+                          <div key={idx} className="bg-sand-cardPurple/30 dark:bg-white/5 border border-sand-border rounded-2xl p-5 space-y-3">
+                            <div className="flex items-center justify-between">
+                              <span className="text-[10px] font-bold text-sand-textSecondary uppercase tracking-wider">
+                                {metric.label}
+                              </span>
+                              <span className="text-[9px] font-bold text-sand-purple bg-sand-purple/10 px-2 py-0.5 rounded">
+                                Grade: {metric.grade}
+                              </span>
+                            </div>
                             <div className="flex items-baseline justify-between">
                               <span className="text-2xl font-black text-sand-textPrimary font-poppins">{metric.score}</span>
                               <span className="text-[9px] text-sand-textSecondary font-medium">/100</span>
@@ -859,8 +953,51 @@ export default function DiagnosticPage() {
                         ))}
                       </div>
 
+                      {/* Technical Inventory Details */}
+                      <div className="bg-white dark:bg-slate-900 border border-sand-border rounded-3xl p-6 md:p-8 space-y-6 shadow-sm text-left">
+                        <div className="flex items-center gap-2">
+                          <Code className="w-4 h-4 text-sand-purple" />
+                          <h4 className="text-xs font-bold text-sand-textPrimary uppercase tracking-wider">Forensic Technology Inventory</h4>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                          <div className="space-y-2">
+                            <span className="text-[10px] font-bold text-sand-textSecondary uppercase tracking-wider block">Detected Tech Stack</span>
+                            <div className="flex flex-wrap gap-1.5">
+                              {report.technical_inventory?.detected_platforms?.map((p, i) => (
+                                <span key={i} className="text-xs bg-slate-100 dark:bg-white/5 text-sand-textPrimary px-2.5 py-1 rounded-lg font-medium">{p}</span>
+                              )) ?? <span className="text-xs text-sand-textSecondary italic">None detected</span>}
+                            </div>
+                          </div>
+
+                          <div className="space-y-2">
+                            <span className="text-[10px] font-bold text-sand-textSecondary uppercase tracking-wider block">Marketing & Analytics Tools</span>
+                            <div className="flex flex-wrap gap-1.5">
+                              {report.technical_inventory?.detected_tools?.map((t, i) => (
+                                <span key={i} className="text-xs bg-sand-purple/10 text-sand-purple px-2.5 py-1 rounded-lg font-medium">{t}</span>
+                              )) ?? <span className="text-xs text-sand-textSecondary italic">None detected</span>}
+                            </div>
+                          </div>
+
+                          <div className="space-y-2">
+                            <span className="text-[10px] font-bold text-sand-textSecondary uppercase tracking-wider block">Security Posture</span>
+                            <div className="space-y-1 text-xs">
+                              <div className="flex justify-between border-b border-sand-border/40 pb-1">
+                                <span className="text-sand-textSecondary">SSL Encryption:</span>
+                                <span className={report.technical_inventory?.security_posture?.ssl ? 'text-green-500 font-bold' : 'text-red-500 font-bold'}>
+                                  {report.technical_inventory?.security_posture?.ssl ? 'Active' : 'Missing'}
+                                </span>
+                              </div>
+                              <div className="flex justify-between pt-1">
+                                <span className="text-sand-textSecondary">TLS Version:</span>
+                                <span className="text-sand-textPrimary font-medium">{report.technical_inventory?.security_posture?.tls_version ?? 'Unknown'}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                       {/* Audit Details - Checklist Accordion */}
-                      <div className="space-y-4">
+                      <div className="space-y-4 text-left">
                         <div className="flex items-center gap-2">
                           <AlertTriangle className="w-4 h-4 text-sand-orange" />
                           <h4 className="text-xs font-bold text-sand-textPrimary uppercase tracking-wider">Identified Issues Checklist</h4>
@@ -888,7 +1025,7 @@ export default function DiagnosticPage() {
                                         {issue.title}
                                       </h5>
                                       <span className="text-[9px] text-sand-textSecondary uppercase font-medium tracking-wider">
-                                        {issue.category} Check
+                                        Priority #{issue.priority_rank ?? (idx + 1)} • {issue.category} Check
                                       </span>
                                     </div>
                                   </div>
@@ -905,16 +1042,47 @@ export default function DiagnosticPage() {
 
                                 {/* Accordion Body */}
                                 {isExpanded && (
-                                  <div className="px-5 pb-5 pt-1 border-t border-sand-border/50 bg-sand-cardPurple/10 space-y-4 animate-slideDown">
-                                    <div className="space-y-1">
-                                      <span className="text-[10px] font-bold text-sand-textSecondary uppercase tracking-wider block">Detailed Critique</span>
-                                      <p className="text-xs md:text-sm text-sand-textSecondary leading-relaxed font-light">
-                                        {issue.description}
-                                      </p>
+                                  <div className="px-5 pb-5 pt-1 border-t border-sand-border/50 bg-sand-cardPurple/10 space-y-4 animate-slideDown text-left">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                      <div className="space-y-1">
+                                        <span className="text-[10px] font-bold text-sand-textSecondary uppercase tracking-wider block">Detailed Critique</span>
+                                        <p className="text-xs md:text-sm text-sand-textSecondary leading-relaxed font-light">
+                                          {issue.description}
+                                        </p>
+                                      </div>
+                                      <div className="space-y-2">
+                                        <div>
+                                          <span className="text-[10px] font-bold text-red-500 uppercase tracking-wider block">Business Impact</span>
+                                          <p className="text-xs text-sand-textSecondary leading-relaxed italic">
+                                            {issue.business_impact}
+                                          </p>
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-2 pt-1 border-t border-sand-border/40">
+                                          <div>
+                                            <span className="text-[9px] font-bold text-sand-textSecondary uppercase tracking-wider block">Effort</span>
+                                            <span className="text-xs font-semibold text-sand-textPrimary">{issue.implementation_effort}</span>
+                                          </div>
+                                          <div>
+                                            <span className="text-[9px] font-bold text-sand-textSecondary uppercase tracking-wider block">Impact</span>
+                                            <span className="text-xs font-semibold text-sand-purple">{issue.estimated_impact}</span>
+                                          </div>
+                                        </div>
+                                      </div>
                                     </div>
 
+                                    {issue.affected_elements && issue.affected_elements.length > 0 && (
+                                      <div className="space-y-1">
+                                        <span className="text-[10px] font-bold text-sand-textSecondary uppercase tracking-wider block">Affected Elements</span>
+                                        <div className="flex flex-wrap gap-1">
+                                          {issue.affected_elements.map((el, i) => (
+                                            <code key={i} className="text-[10px] bg-slate-100 dark:bg-white/5 px-2 py-0.5 rounded text-red-500 font-mono break-all">{el}</code>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    )}
+
                                     {/* Sand AI Fix Block */}
-                                    <div className="border border-sand-purple/20 bg-sand-purple/5 p-4 rounded-xl space-y-3">
+                                    <div className="border border-sand-purple/20 bg-sand-purple/5 p-4 rounded-xl space-y-2">
                                       <div className="flex items-center gap-2">
                                         <Sparkles className="w-4 h-4 text-sand-purple" />
                                         <span className="text-[10px] font-bold text-sand-purple uppercase tracking-wider">Sand AI Resolution Recommendation</span>
@@ -930,6 +1098,47 @@ export default function DiagnosticPage() {
                           })}
                         </div>
                       </div>
+
+                      {/* Strategic Action Plan Box */}
+                      {report.action_plan && (
+                        <div className="bg-gradient-to-br from-slate-900 to-slate-950 text-white p-6 md:p-8 rounded-3xl border border-white/10 shadow-2xl space-y-6 text-left">
+                          <div className="flex items-center gap-2">
+                            <Sparkles className="w-5 h-5 text-sand-orange" />
+                            <h4 className="font-poppins font-black text-lg md:text-xl uppercase tracking-tight">Strategic Implementation Action Plan</h4>
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-3 bg-white/5 p-5 rounded-2xl border border-white/5">
+                              <span className="text-[10px] font-bold text-sand-orange uppercase tracking-wider block">Quick Wins (Execute Immediately)</span>
+                              <ul className="space-y-2 text-xs">
+                                {report.action_plan.quick_wins?.map((win, idx) => (
+                                  <li key={idx} className="flex items-start gap-2">
+                                    <span className="text-sand-orange font-bold">✓</span>
+                                    <span className="text-white/80 font-light">{win}</span>
+                                  </li>
+                                )) ?? <li className="text-white/40 italic">No quick wins defined</li>}
+                              </ul>
+                            </div>
+
+                            <div className="space-y-3 bg-white/5 p-5 rounded-2xl border border-white/5">
+                              <span className="text-[10px] font-bold text-sand-purple uppercase tracking-wider block">Strategic Initiatives (Medium/Long Term)</span>
+                              <ul className="space-y-2 text-xs">
+                                {report.action_plan.strategic_initiatives?.map((item, idx) => (
+                                  <li key={idx} className="flex items-start gap-2">
+                                    <span className="text-sand-purple font-bold">➜</span>
+                                    <span className="text-white/80 font-light">{item}</span>
+                                  </li>
+                                )) ?? <li className="text-white/40 italic">No strategic items defined</li>}
+                              </ul>
+                            </div>
+                          </div>
+
+                          <div className="border-t border-white/10 pt-4 text-xs font-light text-white/70">
+                            <span className="font-bold text-white block mb-1">Estimated ROI Projection:</span>
+                            {report.action_plan.estimated_roi_projection}
+                          </div>
+                        </div>
+                      )}
 
                       {/* Direct Live Session CTA */}
                       <div className="bg-gradient-to-r from-sand-purple to-sand-deepPurple text-white p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">

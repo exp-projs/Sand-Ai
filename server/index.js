@@ -326,9 +326,9 @@ app.post('/api/analyze-website', verifyUser, async (req, res) => {
     }
 
     // Call NVIDIA NIM API
-    const prompt = `You are a world-class Web Development and Digital Marketing auditor at Sand AI, a premier growth agency.
-Your task is to analyze the technical and marketing metadata of a user's website and provide a detailed, critical audit report.
+    const prompt = `You are the Sand AI Chief Digital & Brand Intelligence Officer — the world's most advanced automated website and brand marketing auditor. You combine forensic technical analysis with strategic brand intelligence to deliver actionable, revenue-impacting insights.
 
+Analyze the technical and marketing metadata of the user's website:
 Website URL: ${url}
 Is SSL/HTTPS: ${isSSL ? 'Yes' : 'No'}
 Page Title: ${parsedData.title || '(Missing)'}
@@ -350,32 +350,102 @@ Tracking & Pixel Integrations (Pre-scraped from HTML):
 - Hotjar heatmaps: ${parsedData.hasHotjar ? 'Yes' : 'No'}
 - Microsoft Clarity: ${parsedData.hasClarity ? 'Yes' : 'No'}
 
-Provide your response in valid JSON format. The JSON MUST have the following structure:
+Perform a multi-dimensional brand and marketing intelligence analysis across the following 6 pillars:
+1. SEO Mastery (Weight: 20%): Title, Meta description, headings semantic structure, image SEO, and mobile/viewport configurations.
+2. Performance Engineering (Weight: 20%): Render-blocking resource minimization (scripts, stylesheets count), payload size proxy, and modern web techs.
+3. Tracking & Analytics Intelligence (Weight: 20%): GA4, GTM, Meta Pixel, TikTok, Hotjar, Clarity integrations, and attribution model capacity.
+4. Copywriting & Value Proposition (Weight: 20%): Headline clarity/impact, value prop memorability, objection handling, CTA clarity and scannability based on heading texts.
+5. Brand Identity Cohesion (Weight: 10%): Visual identity consistency, brand messaging alignment, trust signals, and customer testimonials detection.
+6. Conversion Optimization (CRO) (Weight: 10%): Above-the-fold clarity, form fields, social proof, and mobile conversion ease.
+
+Provide your response in strictly valid JSON format matching the following schema. Return ONLY raw JSON. No markdown codeblocks (do not wrap in \`\`\`json).
+
 {
-  "score": 75,
-  "scores": {
-    "seo": 80,
-    "performance": 70,
-    "tracking": 60,
-    "copywriting": 78
+  "audit_metadata": {
+    "audit_id": "Generate a unique UUID",
+    "audited_url": "${url}",
+    "audit_timestamp": "${new Date().toISOString()}",
+    "audit_version": "2.0-enhanced",
+    "scoring_model": "sand-ai-v2-six-pillar"
   },
-  "summary": "A professional, insightful executive summary (2-3 paragraphs) critiquing their current state. Explain why they are losing revenue, and note how Sand AI's development/marketing systems are positioned to fix it.",
+  "executive_summary": {
+    "overall_score": 78,
+    "grade": "C+",
+    "brand_health_index": 82,
+    "marketing_maturity_level": "Level 3 (Emerging)",
+    "revenue_at_risk_estimate": "Medium | High | Critical based on conversion gaps",
+    "competitive_positioning": "Ahead of market / On par / Behind market / Significantly behind",
+    "summary_paragraph": "Provide a 3-4 sentence executive narrative highlighting the top 3 strengths and top 3 critical gaps."
+  },
+  "pillar_scores": {
+    "seo_mastery": { "score": 80, "weight": 20, "grade": "B-" },
+    "performance_engineering": { "score": 70, "weight": 20, "grade": "C" },
+    "tracking_analytics_intelligence": { "score": 60, "weight": 20, "grade": "D" },
+    "copywriting_value_proposition": { "score": 85, "weight": 20, "grade": "B" },
+    "brand_identity_cohesion": { "score": 90, "weight": 10, "grade": "A-" },
+    "conversion_optimization": { "score": 75, "weight": 10, "grade": "C+" }
+  },
+  "technical_inventory": {
+    "detected_platforms": ["List detected CMS or frameworks if identifiable, or guess based on scripts/patterns"],
+    "detected_tools": ["List all detected marketing, analytics, and heatmapping tools from pre-scraped indicators"],
+    "detected_integrations": ["List third-party APIs/scripts detected"],
+    "security_posture": {
+      "ssl": ${isSSL},
+      "tls_version": "TLS 1.2 or TLS 1.3 proxy",
+      "security_headers": ["List possible security headers based on ssl/https status"],
+      "vulnerabilities": ["List generic security opportunities based on standard checks"]
+    },
+    "performance_metrics": {
+      "estimated_lcp": "Estimated LCP value based on script/stylesheet bloat",
+      "estimated_cls": "Estimated CLS based on image dimensions and layout indicators",
+      "script_count": ${parsedData.scripts.length},
+      "stylesheet_count": ${parsedData.stylesheets.length},
+      "image_count": ${parsedData.images.length},
+      "third_party_domains": ["List key third-party script domains observed"]
+    }
+  },
   "issues": [
     {
-      "category": "seo" | "performance" | "tracking" | "copywriting",
-      "severity": "critical" | "warning" | "optimized",
-      "title": "Short title describing the issue",
-      "description": "Longer explanation of the issue, why it matters, and how it impacts their conversion rate.",
-      "recommendation": "Concrete fix, and mention how Sand AI's tools (like pixel setups, automated pipeline routing, Looker Studio dashboards, etc.) can solve this perfectly."
+      "id": "issue-001",
+      "category": "seo | performance | tracking | copywriting | brand_identity | conversion | security | accessibility",
+      "severity": "critical | warning | optimized | opportunity",
+      "pillar": "seo_mastery | performance_engineering | tracking_analytics_intelligence | copywriting_value_proposition | brand_identity_cohesion | conversion_optimization",
+      "title": "Concise issue name (max 60 chars)",
+      "description": "Detailed explanation of the issue and its business impact (2-3 sentences)",
+      "business_impact": "Revenue/brand/traffic/risk impact statement",
+      "affected_elements": ["List specific HTML tags/elements or missing pixels"],
+      "recommendation": "Specific, actionable fix with implementation guidance. Mention how Sand AI's premium development/marketing integrations can solve it.",
+      "implementation_effort": "Quick Win (1hr) | Medium (1 day) | Heavy (1 week) | Strategic (1 month+)",
+      "estimated_impact": "High/Medium/Low",
+      "priority_rank": 1
     }
-  ]
+  ],
+  "strengths": [
+    {
+      "id": "strength-001",
+      "category": "seo | performance | tracking | copywriting | brand_identity | conversion",
+      "title": "What's working well",
+      "description": "Why this is a competitive advantage",
+      "leverage_recommendation": "How to amplify this strength further"
+    }
+  ],
+  "competitive_intelligence": {
+    "tech_stack_summary": "Inferred tech stack maturity description",
+    "market_position_signals": "What the detected tools suggest about market positioning",
+    "gap_analysis": "What's missing compared to industry-leading competitors"
+  },
+  "action_plan": {
+    "quick_wins": ["List of short titles of issues tagged as Quick Win, ordered by impact"],
+    "strategic_initiatives": ["List of Heavy/Strategic issue titles that require planning"],
+    "estimated_roi_projection": "Qualitative ROI narrative if all critical issues are resolved"
+  }
 }
 
 Guidelines for the response:
-- Be highly professional, critical, and educational. Give constructive, actionable advice.
-- Give scores that make sense. For example, if there are multiple H1s, or missing title/description, drop the SEO score. If there are >15 external scripts, drop the performance score. If there are few scripts (meaning they probably lack essential tracking pixels like Meta CAPI, Google Ads tracking, or GA4), drop the tracking score and note this.
-- Make sure to recommend specific Sand AI tools (e.g., Looker Studio integrations for tracking, custom high-performance Next.js pages for speed, automated CRM pipelines for lead routing, etc.) as the solution to their bottlenecks.
-- Return ONLY the JSON object, with no markdown formatting. Do not wrap it in \`\`\`json.`;
+- Output must be strictly parseable JSON.
+- Escape all double quotes in text fields to prevent JSON parser crashes.
+- Do not output any preamble, extra commentary, or wrapping outside the JSON object. Just return the raw JSON content.
+`;
 
     const nimResponse = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
       method: 'POST',

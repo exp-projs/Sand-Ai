@@ -264,8 +264,8 @@ export default function PricingPage() {
                   </div>
 
                   {/* Button */}
-                  <Link 
-                    href={tier.href}
+                  <button 
+                    onClick={() => window.dispatchEvent(new CustomEvent('open-onboarding'))}
                     className={`block w-full text-center rounded-full py-4 text-xs md:text-sm font-bold tracking-wider uppercase transition-all duration-300 ${
                       tier.isPopular
                         ? 'bg-sand-orange text-white hover:bg-sand-orange/90 shadow-lg hover:shadow-sand-orange/20 hover:scale-[1.02]'
@@ -273,7 +273,7 @@ export default function PricingPage() {
                     }`}
                   >
                     {tier.ctaLabel}
-                  </Link>
+                  </button>
                 </div>
               </div>
             )

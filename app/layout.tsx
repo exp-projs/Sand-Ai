@@ -7,6 +7,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import IntroOverlay from "@/components/IntroOverlay";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollProvider from "@/components/ScrollProvider";
+import OnboardingModal from "@/components/OnboardingModal";
+import CommandPalette from "@/components/CommandPalette";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -63,6 +65,8 @@ export default function RootLayout({
             <Navbar />
             {children}
             <FooterSection />
+            <OnboardingModal />
+            <CommandPalette />
           </ScrollProvider>
         </ThemeProvider>
       </body>

@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { User } from '@supabase/supabase-js'
 import { ThemeToggle } from './ThemeToggle'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Search } from 'lucide-react'
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
@@ -204,6 +204,14 @@ export default function Navbar() {
                 ? 'opacity-0 -translate-y-4 pointer-events-none'
                 : 'opacity-100 translate-y-0'
             }`}>
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
+                className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-white/5 text-sand-textSecondary hover:text-sand-textPrimary transition-colors flex items-center justify-center"
+                title="Search / Command Palette (Cmd+K)"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+
               <ThemeToggle />
 
               {user ? (
@@ -250,12 +258,12 @@ export default function Navbar() {
                 </>
               )}
 
-              <Link
-                href={isServicePage ? '#intake-form' : '#services'}
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent('open-onboarding'))}
                 className="rounded-full bg-sand-orange px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#E67A00] transition-colors"
               >
                 Book a Call
-              </Link>
+              </button>
             </div>
 
             {/* Scrolled & Mobile Unified Menu Button */}
@@ -326,14 +334,32 @@ export default function Navbar() {
           ))}
         </div>
 
+        {/* Search / Command palette in mobile menu */}
+        <button
+          onClick={() => {
+            setMobileMenuOpen(false)
+            setTimeout(() => {
+              window.dispatchEvent(new CustomEvent('open-command-palette'))
+            }, 150)
+          }}
+          className="flex items-center gap-2 text-sm font-semibold text-sand-textPrimary hover:text-sand-purple bg-sand-cardPurple/30 rounded-2xl border border-sand-border/40 px-5 py-2.5 my-2 w-full max-w-[240px] justify-center"
+        >
+          <Search className="w-4 h-4 text-sand-purple" />
+          Search / Commands
+        </button>
+
         {/* CTA */}
-        <Link
-          href={isServicePage ? '#intake-form' : '#services'}
-          onClick={() => setMobileMenuOpen(false)}
-          className="!text-sand-orange"
+        <button
+          onClick={() => {
+            setMobileMenuOpen(false)
+            setTimeout(() => {
+              window.dispatchEvent(new CustomEvent('open-onboarding'))
+            }, 150)
+          }}
+          className="text-base font-bold !text-sand-orange font-poppins"
         >
           Book a Call
-        </Link>
+        </button>
 
         {/* Auth Actions */}
         {user && (
